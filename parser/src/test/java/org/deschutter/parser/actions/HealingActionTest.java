@@ -11,7 +11,7 @@ import static org.junit.Assert.assertFalse;
  */
 public class HealingActionTest {
 
-    private HealingAction healingAction = new HealingAction("Nilus", "Khaet","skill",1,2,Boolean.FALSE);
+    private HealingAction healingAction = new HealingAction("Nilus", "Khaet","skill",1,2,Boolean.FALSE,new Integer(12));
 
     @Test
     public void correctType() {
@@ -46,5 +46,10 @@ public class HealingActionTest {
     @Test
     public void hasCriticalHit() {
         assertFalse(healingAction.isCriticalHit());
+    }
+    
+    @Test
+    public void hasOverheal() {
+        assertEquals(new Integer(12),healingAction.getOverheal());
     }
 }

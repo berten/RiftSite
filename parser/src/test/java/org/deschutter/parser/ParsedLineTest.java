@@ -17,7 +17,7 @@ public class ParsedLineTest {
 
     @Before
     public void setUp() {
-        parsedLine = new ParsedLine(new Date(),"20:23:29: ( 3 , T=P#R=R#353391833781567547 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Mimii , Rusila Dreadblade , 991 , 1843227230 , Life's Vengeance ) Mimii's Life's Vengeance hits Rusila Dreadblade for 991 Life damage. ");
+        parsedLine = new ParsedLine(new Date(),"20:23:29: ( 3 , T=P#R=R#353391833781567547 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Mimii , Rusila Dreadblade , 991 , 1843227230 , Life's Vengeance ) Mimii's Life's Vengeance hits Rusila Dreadblade for 991 Life damage. (13 blocked 39 absorbed 14 overkill 37 overheal)");
     }
 
     @Test
@@ -42,5 +42,25 @@ public class ParsedLineTest {
     @Test
     public void maps_damageType(){
         assertSame(DamageTypeEnum.LIFE,parsedLine.getDamageType());
+    }
+    
+    @Test
+    public void maps_blocked() {
+        assertEquals(new Integer(13),parsedLine.getBlocked());
+    }
+    
+    @Test
+    public void maps_absorbed() {
+        assertEquals(new Integer(39),parsedLine.getAbsorbed());
+    }
+    
+     @Test
+    public void maps_overkill() {
+        assertEquals(new Integer(14),parsedLine.getOverkill());
+    }
+     
+    @Test
+    public void maps_overheal() {
+        assertEquals(new Integer(37),parsedLine.getOverheal());
     }
 }

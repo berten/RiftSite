@@ -18,6 +18,6 @@ public class AttackParser implements IParser {
     }
     
     public AttackAction handle(ParsedLine parsedLine) {
-        return new AttackAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(), parsedLine.getSecondsIntoFight(), parsedLine.getDamageType(), parsedLine.getType() == CombatTypeEnum.CRITICAL_HIT ? Boolean.TRUE : Boolean.FALSE);
+        return new AttackAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(), parsedLine.getSecondsIntoFight(), parsedLine.getDamageType(), parsedLine.getType() == CombatTypeEnum.CRITICAL_HIT ? Boolean.TRUE : Boolean.FALSE,parsedLine.getBlocked(),parsedLine.getAbsorbed(),parsedLine.getOverkill());
     }
 }

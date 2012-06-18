@@ -18,7 +18,12 @@ public class ParsedLine {
     private Integer amount = 0;
     private Integer secondsIntoFight = 0;
     private DamageTypeEnum damageType;
-
+    private Integer absorbed = 0;
+    private Integer blocked = 0;
+    private Integer overheal = 0;
+    private Integer overkill = 0;
+    
+    //Todo this isn't clean at all - fix this!!
     public ParsedLine(Date fightStartTime, String line) {
         this.line = line;
 
@@ -52,6 +57,26 @@ public class ParsedLine {
 
             this.target = split[6].trim();
             this.amount = new Integer(split[7].trim());
+            if (splitted.length == 3) {
+                final String[] lastPartSplit = splitted[2].split("\\)")[0].split(" ");
+
+                for (int i = 0; i < lastPartSplit.length; i++) {
+                    switch (lastPartSplit[i]) {
+                        case "absorbed":
+                            this.absorbed = new Integer(lastPartSplit[i - 1]);
+                            break;
+                        case "blocked":
+                            this.blocked = new Integer(lastPartSplit[i - 1]);
+                            break;
+                        case "overheal":
+                            this.overheal = new Integer(lastPartSplit[i - 1]);
+                            break;
+                        case "overkill":
+                            this.overkill = new Integer(lastPartSplit[i - 1]);
+                            break;
+                    }
+                }
+            }
         }
     }
 
@@ -84,9 +109,23 @@ public class ParsedLine {
         return damageType;
     }
 
+    public Integer getAbsorbed() {
+        return absorbed;
+    }
+
+    public Integer getBlocked() {
+        return blocked;
+    }
+
+    public Integer getOverheal() {
+        return overheal;
+    }
+
+    public Integer getOverkill() {
+        return overkill;
+    }
+    
     public String toString() {
         return "ParsedLine{" + "line=" + line + ", typeInteger=" + typeInteger + ", actor=" + actor + ", target=" + target + ", skill=" + skill + ", amount=" + amount + ", secondsIntoFight=" + secondsIntoFight + ", damageType=" + damageType + '}';
     }
-    
-    
 }

@@ -23,6 +23,7 @@ public class HealingParserTest {
     private String skill = "skill";
     private ParsedLine parsedLine;
     private HealingAction riftAction;
+    private Integer overheal = new Integer(12);
 
     @Before
     public void setUp() {
@@ -33,6 +34,7 @@ public class HealingParserTest {
         when(parsedLine.getSkill()).thenReturn(skill);
         when(parsedLine.getAmount()).thenReturn(amount);
         when(parsedLine.getSecondsIntoFight()).thenReturn(secondsIntoFight);
+        when(parsedLine.getOverheal()).thenReturn(overheal);
         parser = new HealingParser();
 
         riftAction = parser.handle(parsedLine);
@@ -81,8 +83,13 @@ public class HealingParserTest {
     @Test
     public void typeCriticalHeal_criticalHit() {
         when(parsedLine.getType()).thenReturn(CombatTypeEnum.CRITICAL_HEAL);
-         assertTrue(parser.canHandle(parsedLine));
+        assertTrue(parser.canHandle(parsedLine));
         riftAction = parser.handle(parsedLine);
         assertTrue(riftAction.isCriticalHit());
+    }
+
+    @Test
+    public void returnsOverheal() {
+        assertEquals(overheal, riftAction.getOverheal());
     }
 }

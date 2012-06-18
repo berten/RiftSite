@@ -25,6 +25,9 @@ public class AttackParserTest {
     private String skill = "skill";
     private ParsedLine parsedLine;
     private AttackAction riftAction;
+    private Integer absorbed = new Integer(12);
+    private Integer blocked = new Integer(13);
+    private Integer overkill = new Integer(14);
 
     @Before
     public void setUp() {
@@ -36,6 +39,9 @@ public class AttackParserTest {
         when(parsedLine.getAmount()).thenReturn(amount);
         when(parsedLine.getSecondsIntoFight()).thenReturn(secondsIntoFight);
         when(parsedLine.getDamageType()).thenReturn(DamageTypeEnum.LIFE);
+        when(parsedLine.getAbsorbed()).thenReturn(absorbed);
+        when(parsedLine.getOverkill()).thenReturn(overkill);
+        when(parsedLine.getBlocked()).thenReturn(blocked);
         parser = new AttackParser();
 
         riftAction = parser.handle(parsedLine);
@@ -111,5 +117,20 @@ public class AttackParserTest {
     public void dot_canHandle() {
         when(parsedLine.getType()).thenReturn(CombatTypeEnum.DOT);
         assertTrue(parser.canHandle(parsedLine));
+    }
+
+    @Test
+    public void returnsAbsorbed() {
+        assertEquals(absorbed, riftAction.getAbsorbed());
+    }
+
+    @Test
+    public void returnsBlocked() {
+        assertEquals(blocked, riftAction.getBlocked());
+    }
+
+    @Test
+    public void returnsOverkill() {
+        assertEquals(overkill, riftAction.getOverkill());
     }
 }

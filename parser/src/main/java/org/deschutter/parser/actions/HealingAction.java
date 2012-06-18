@@ -6,7 +6,14 @@ package org.deschutter.parser.actions;
  */
 public class HealingAction extends ActorTargetAction {
 
-    public HealingAction(String actor, String target, String skill,Integer amount,Integer secondsIntoFight,Boolean criticalHit) {
-        super(ActionTypeEnum.HEAL, actor, target, skill,amount,secondsIntoFight,criticalHit);
+    private final Integer overheal;
+
+    public HealingAction(String actor, String target, String skill, Integer amount, Integer secondsIntoFight, Boolean criticalHit, Integer overHeal) {
+        super(ActionTypeEnum.HEAL, actor, target, skill, amount, secondsIntoFight, criticalHit);
+        this.overheal = overHeal;
+    }
+
+    public Integer getOverheal() {
+        return overheal;
     }
 }

@@ -18,6 +18,6 @@ public class HealingParser implements IParser {
     }
 
     public HealingAction handle(ParsedLine parsedLine) {
-        return new HealingAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(),parsedLine.getSecondsIntoFight(),parsedLine.getType() == CombatTypeEnum.HEAL ? Boolean.FALSE : Boolean.TRUE);
+        return new HealingAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(),parsedLine.getSecondsIntoFight(),parsedLine.getType() == CombatTypeEnum.HEAL ? Boolean.FALSE : Boolean.TRUE,parsedLine.getOverheal());
     }
 }
