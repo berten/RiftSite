@@ -19,7 +19,7 @@ public class ParsedLineTest {
 
     @Before
     public void setUp() {
-        parsedLine = new ParsedLine(new Date(), "20:23:29: ( 3 , T=P#R=R#353391833781567547 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Mimii , Rusila Dreadblade , 991 , 1843227230 , Life's Vengeance ) Mimii's Life's Vengeance hits Rusila Dreadblade for 991 Life damage. (13 blocked 39 absorbed 14 overkill 37 overheal)");
+        parsedLine = new ParsedLine(new Date(), "20:23:29: ( 3 , T=P#R=R#353391833781567547 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Mimii , Rusila Dreadblade , 991 , 1843227230 , Life's Vengeance ) Mimii's Life's Vengeance hits Rusila Dreadblade for 991 Life damage. (13 blocked 39 absorbed 14 overkill 37 overheal 34 deflected)");
     }
 
     @Test
@@ -65,6 +65,11 @@ public class ParsedLineTest {
     @Test
     public void maps_overheal() {
         assertEquals(new Integer(37), parsedLine.getOverheal());
+    }
+    
+     @Test
+    public void maps_deflected() {
+        assertEquals(new Integer(34), parsedLine.getDeflected());
     }
 
     @Test

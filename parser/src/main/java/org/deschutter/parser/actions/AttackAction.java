@@ -10,13 +10,15 @@ public class AttackAction extends ActorTargetAction {
     private final Integer blocked;
     private final Integer absorbed;
     private final Integer overkill;
+    private final Integer deflected;
 
-    public AttackAction(String actor, String target, String skill, Integer amount, Integer secondsIntoFight, DamageTypeEnum damageType,Boolean criticalHit,Integer blocked, Integer absorbed, Integer overkill) {
+    public AttackAction(String actor, String target, String skill, Integer amount, Integer secondsIntoFight, DamageTypeEnum damageType,Boolean criticalHit,Integer blocked, Integer absorbed, Integer overkill,Integer deflected) {
         super(ActionTypeEnum.ATTACK, actor, target, skill, amount, secondsIntoFight,criticalHit);
         this.damageType = damageType;
         this.blocked = blocked;
         this.absorbed = absorbed;
         this.overkill = overkill;
+        this.deflected = deflected;
     }
 
     public DamageTypeEnum getDamageType() {
@@ -34,6 +36,8 @@ public class AttackAction extends ActorTargetAction {
     public Integer getOverkill() {
         return overkill;
     }
-    
-    
+
+    public Integer getDeflected() {
+        return deflected;
+    }
 }

@@ -11,8 +11,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class DamageDoneActionTest {
 
-    private AttackAction attackAction = new DamageDoneAction("Nilus", "Murdantix", "skill", 1, 2, DamageTypeEnum.LIFE, Boolean.TRUE, new Integer(12), new Integer(13), new Integer(14));
-
+    private AttackAction attackAction = new DamageDoneAction("Nilus", "Murdantix", "skill", 1, 2, DamageTypeEnum.LIFE, Boolean.TRUE, new Integer(12), new Integer(13), new Integer(14), new Integer(15));
 
     @Test
     public void correctType() {
@@ -67,5 +66,10 @@ public class DamageDoneActionTest {
     @Test
     public void hasOverkill() {
         assertEquals(new Integer(14), attackAction.getOverkill());
+    }
+
+    @Test
+    public void hasDeflected() {
+        assertEquals(new Integer(15), attackAction.getDeflected());
     }
 }

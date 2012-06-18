@@ -30,6 +30,7 @@ public class DamageTakenParserTest {
     private Integer absorbed = new Integer(12);
     private Integer blocked = new Integer(13);
     private Integer overkill = new Integer(14);
+    private Integer deflected = new Integer(15);
 
     @Before
     public void setUp() {
@@ -44,7 +45,8 @@ public class DamageTakenParserTest {
         when(parsedLine.getAbsorbed()).thenReturn(absorbed);
         when(parsedLine.getOverkill()).thenReturn(overkill);
         when(parsedLine.getBlocked()).thenReturn(blocked);
-        
+        when(parsedLine.getDeflected()).thenReturn(deflected);
+
         when(parsedLine.getActorIsInRaid()).thenReturn(Boolean.FALSE);
         when(parsedLine.getTargetIsInRaid()).thenReturn(Boolean.TRUE);
         parser = new DamageTakenParser();
@@ -143,5 +145,10 @@ public class DamageTakenParserTest {
     @Test
     public void returnsOverkill() {
         assertEquals(overkill, riftAction.getOverkill());
+    }
+
+    @Test
+    public void returnsDeflected() {
+        assertEquals(deflected, riftAction.getDeflected());
     }
 }

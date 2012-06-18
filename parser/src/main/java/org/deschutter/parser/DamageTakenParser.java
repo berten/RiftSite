@@ -19,6 +19,6 @@ public class DamageTakenParser implements IParser {
     }
     
     public AttackAction handle(ParsedLine parsedLine) {
-        return new DamageTakenAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(), parsedLine.getSecondsIntoFight(), parsedLine.getDamageType(), parsedLine.getType() == CombatTypeEnum.CRITICAL_HIT ? Boolean.TRUE : Boolean.FALSE,parsedLine.getBlocked(),parsedLine.getAbsorbed(),parsedLine.getOverkill());
+        return new DamageTakenAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(), parsedLine.getSecondsIntoFight(), parsedLine.getDamageType(), parsedLine.getType() == CombatTypeEnum.CRITICAL_HIT ? Boolean.TRUE : Boolean.FALSE,parsedLine.getBlocked(),parsedLine.getAbsorbed(),parsedLine.getOverkill(),parsedLine.getDeflected());
     }
 }
