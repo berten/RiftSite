@@ -38,8 +38,12 @@ public class CombatAnalyzer {
             fights.add(fight);
             String line = null;
             BufferedReader reader = new BufferedReader(file);
+            Date fightDate = null;
             while ((line = reader.readLine()) != null) {
-                final ParsedLine parsedLine = new ParsedLine(new Date(), line);
+                final ParsedLine parsedLine = new ParsedLine(fightDate, line);
+                if(fightDate == null) {
+                    fightDate = parsedLine.getDate();
+                }
                 for (IParser parser : parsers) {
                     if (parser.canHandle(parsedLine)) {
                         fight.addAction(parser.handle(parsedLine));

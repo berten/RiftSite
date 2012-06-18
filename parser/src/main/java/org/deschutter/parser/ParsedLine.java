@@ -1,5 +1,6 @@
 package org.deschutter.parser;
 
+import java.util.Calendar;
 import java.util.Date;
 import org.deschutter.parser.actions.DamageTypeEnum;
 
@@ -23,9 +24,9 @@ public class ParsedLine {
     private Integer overheal = 0;
     private Integer overkill = 0;
     private Integer deflected = 0;
-    
     private Boolean actorIsInRaid = Boolean.FALSE;
     private Boolean targetIsInRaid = Boolean.FALSE;
+    private Date date;
 
     //Todo this isn't clean at all - fix this!!
     public ParsedLine(Date fightStartTime, String line) {
@@ -48,51 +49,91 @@ public class ParsedLine {
             final String lastPart = split[9].trim();
 
             this.skill = lastPart.split("\\)")[0].trim();
-
-
-            //TODO This is ugly, but well it works for now
-            if (lastPart.split("\\)")[1].contains("Life damage")) {
-                this.damageType = DamageTypeEnum.LIFE;
-            } else if (lastPart.split("\\)")[1].contains("Fire damage")) {
-                this.damageType = DamageTypeEnum.FIRE;
-            } else if (lastPart.split("\\)")[1].contains("Air damage")) {
-                this.damageType = DamageTypeEnum.AIR;
-            } else if (lastPart.split("\\)")[1].contains("Death damage")) {
-                this.damageType = DamageTypeEnum.DEATH;
-            } else if (lastPart.split("\\)")[1].contains("Earth damage")) {
-                this.damageType = DamageTypeEnum.EARTH;
-            } else if (lastPart.split("\\)")[1].contains("Water damage")) {
-                this.damageType = DamageTypeEnum.WATER;
-            } else if (lastPart.split("\\)")[1].contains("Physical damage")) {
-                this.damageType = DamageTypeEnum.PHYSICAL;
-            }
+            
+            final String lineDescription = lastPart.split("\\)")[1];
+            determinDamageType(lineDescription);
 
             this.target = split[6].trim();
             this.amount = new Integer(split[7].trim());
+            
             if (splitted.length == 3) {
-                final String[] lastPartSplit = splitted[2].split("\\)")[0].split(" ");
+                final String[] mitigatioinsAndOverages = splitted[2].split("\\)")[0].split(" ");
+                calculateMitigationsAndOverages(mitigatioinsAndOverages);
+            }
+            
+            calculateTimes(splitted[0].split(":"), fightStartTime);
 
-                for (int i = 0; i < lastPartSplit.length; i++) {
-                    switch (lastPartSplit[i]) {
-                        case "absorbed":
-                            this.absorbed = new Integer(lastPartSplit[i - 1]);
-                            break;
-                        case "blocked":
-                            this.blocked = new Integer(lastPartSplit[i - 1]);
-                            break;
-                        case "overheal":
-                            this.overheal = new Integer(lastPartSplit[i - 1]);
-                            break;
-                        case "overkill":
-                            this.overkill = new Integer(lastPartSplit[i - 1]);
-                            break;
-                        case "deflected":
-                            this.deflected = new Integer(lastPartSplit[i - 1]);
-                            break;
-                    }
-                }
+
+        }
+    }
+
+    private void determinDamageType(final String lineDescription) {
+        //TODO This is ugly, but well it works for now
+        if (lineDescription.contains("Life damage")) {
+            this.damageType = DamageTypeEnum.LIFE;
+        } else if (lineDescription.contains("Fire damage")) {
+            this.damageType = DamageTypeEnum.FIRE;
+        } else if (lineDescription.contains("Air damage")) {
+            this.damageType = DamageTypeEnum.AIR;
+        } else if (lineDescription.contains("Death damage")) {
+            this.damageType = DamageTypeEnum.DEATH;
+        } else if (lineDescription.contains("Earth damage")) {
+            this.damageType = DamageTypeEnum.EARTH;
+        } else if (lineDescription.contains("Water damage")) {
+            this.damageType = DamageTypeEnum.WATER;
+        } else if (lineDescription.contains("Physical damage")) {
+            this.damageType = DamageTypeEnum.PHYSICAL;
+        }
+    }
+
+    private void calculateMitigationsAndOverages(final String[] lastPartSplit) throws NumberFormatException {
+        for (int i = 0; i < lastPartSplit.length; i++) {
+            switch (lastPartSplit[i]) {
+                case "absorbed":
+                    this.absorbed = new Integer(lastPartSplit[i - 1]);
+                    break;
+                case "blocked":
+                    this.blocked = new Integer(lastPartSplit[i - 1]);
+                    break;
+                case "overheal":
+                    this.overheal = new Integer(lastPartSplit[i - 1]);
+                    break;
+                case "overkill":
+                    this.overkill = new Integer(lastPartSplit[i - 1]);
+                    break;
+                case "deflected":
+                    this.deflected = new Integer(lastPartSplit[i - 1]);
+                    break;
             }
         }
+    }
+
+    private void calculateTimes(final String[] time, Date fightStartTime) throws NumberFormatException {
+        Calendar cal = Calendar.getInstance();
+
+        if (fightStartTime == null) {
+            cal.setTime(new Date());
+        } else {
+            cal.setTime(fightStartTime);
+        }
+
+
+
+        cal.set(Calendar.HOUR_OF_DAY, new Integer(time[0]));
+        cal.set(Calendar.MINUTE, new Integer(time[1]));
+        cal.set(Calendar.SECOND, new Integer(time[2]));
+
+        if (fightStartTime == null) {
+            fightStartTime = cal.getTime();
+        }
+
+        if (fightStartTime.getTime() > cal.getTime().getTime()) {
+            cal.add(Calendar.DATE, 1);
+        }
+
+        this.date = cal.getTime();
+
+        secondsIntoFight = new Long((cal.getTime().getTime() - fightStartTime.getTime()) / 1000).intValue();
     }
 
     public CombatTypeEnum getType() {
@@ -117,7 +158,7 @@ public class ParsedLine {
     }
 
     public Integer getSecondsIntoFight() {
-        return 0;
+        return secondsIntoFight;
     }
 
     public DamageTypeEnum getDamageType() {
@@ -143,7 +184,7 @@ public class ParsedLine {
     public Integer getDeflected() {
         return deflected;
     }
-    
+
     public Boolean getActorIsInRaid() {
         return actorIsInRaid;
     }
@@ -154,5 +195,9 @@ public class ParsedLine {
 
     public String toString() {
         return "ParsedLine{" + "line=" + line + ", typeInteger=" + typeInteger + ", actor=" + actor + ", target=" + target + ", skill=" + skill + ", amount=" + amount + ", secondsIntoFight=" + secondsIntoFight + ", damageType=" + damageType + '}';
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

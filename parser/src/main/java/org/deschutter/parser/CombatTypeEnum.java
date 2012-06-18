@@ -25,6 +25,7 @@ public enum CombatTypeEnum {
 // 19 resist
 // 23 critical hit
 // 26 immune
+// 27 Charge Consumer
 // 28 critical heal
     CASTING_START(1), INTERRUPTED(2), NORMAL_ATTACK(3), 
     DOT(4), HEAL(5), BUFF_GAIN(6), BUFF_LOSS(7), 

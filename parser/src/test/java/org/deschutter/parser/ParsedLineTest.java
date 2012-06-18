@@ -1,5 +1,6 @@
 package org.deschutter.parser;
 
+import java.util.Calendar;
 import java.util.Date;
 import org.deschutter.parser.actions.DamageTypeEnum;
 import org.junit.Before;
@@ -15,11 +16,20 @@ import static org.junit.Assert.assertFalse;
  */
 public class ParsedLineTest {
 
+    private Date dateTime;
     private ParsedLine parsedLine;
 
     @Before
     public void setUp() {
-        parsedLine = new ParsedLine(new Date(), "20:23:29: ( 3 , T=P#R=R#353391833781567547 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Mimii , Rusila Dreadblade , 991 , 1843227230 , Life's Vengeance ) Mimii's Life's Vengeance hits Rusila Dreadblade for 991 Life damage. (13 blocked 39 absorbed 14 overkill 37 overheal 34 deflected)");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+
+        cal.set(Calendar.HOUR_OF_DAY, 20);
+        cal.set(Calendar.MINUTE, 23);
+        cal.set(Calendar.SECOND, 25);
+        dateTime = cal.getTime();
+
+        parsedLine = new ParsedLine(dateTime, "20:23:29: ( 3 , T=P#R=R#353391833781567547 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Mimii , Rusila Dreadblade , 991 , 1843227230 , Life's Vengeance ) Mimii's Life's Vengeance hits Rusila Dreadblade for 991 Life damage. (13 blocked 39 absorbed 14 overkill 37 overheal 34 deflected)");
     }
 
     @Test
@@ -66,8 +76,8 @@ public class ParsedLineTest {
     public void maps_overheal() {
         assertEquals(new Integer(37), parsedLine.getOverheal());
     }
-    
-     @Test
+
+    @Test
     public void maps_deflected() {
         assertEquals(new Integer(34), parsedLine.getDeflected());
     }
@@ -78,8 +88,25 @@ public class ParsedLineTest {
     }
 
     @Test
+    public void maps_SecondsInFight() {
+        assertEquals(new Integer(4), parsedLine.getSecondsIntoFight());
+    }
+
+    @Test
+    public void maps_SecondsInFight_MidnightPassed() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+
+        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.SECOND, 55);
+        parsedLine = new ParsedLine(cal.getTime(), "00:00:04: ( 3 , T=P#R=R#353391833781567547 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Mimii , Rusila Dreadblade , 991 , 1843227230 , Life's Vengeance ) Mimii's Life's Vengeance hits Rusila Dreadblade for 991 Life damage. (13 blocked 39 absorbed 14 overkill 37 overheal 34 deflected)");
+        assertEquals(new Integer(9), parsedLine.getSecondsIntoFight());
+    }
+
+    @Test
     public void maps_targetIsInRaid() {
-        assertFalse("Expected false, was " + parsedLine.getTargetIsInRaid(),parsedLine.getTargetIsInRaid());
+        assertFalse("Expected false, was " + parsedLine.getTargetIsInRaid(), parsedLine.getTargetIsInRaid());
     }
 
     @Test
