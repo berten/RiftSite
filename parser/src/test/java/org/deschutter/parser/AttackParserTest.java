@@ -89,16 +89,27 @@ public class AttackParserTest {
     @Test
     public void typeCriticalHit_criticalHit() {
         when(parsedLine.getType()).thenReturn(CombatTypeEnum.CRITICAL_HIT);
-        assertTrue(parser.canHandle(parsedLine));
         riftAction = parser.handle(parsedLine);
         assertTrue(riftAction.isCriticalHit());
     }
-    
+
+    @Test
+    public void typeCriticalHit_canHandle() {
+        when(parsedLine.getType()).thenReturn(CombatTypeEnum.CRITICAL_HIT);
+        assertTrue(parser.canHandle(parsedLine));
+    }
+
     @Test
     public void dot_noCriticalHit() {
         when(parsedLine.getType()).thenReturn(CombatTypeEnum.DOT);
         assertTrue(parser.canHandle(parsedLine));
         riftAction = parser.handle(parsedLine);
         assertFalse(riftAction.isCriticalHit());
+    }
+
+    @Test
+    public void dot_canHandle() {
+        when(parsedLine.getType()).thenReturn(CombatTypeEnum.DOT);
+        assertTrue(parser.canHandle(parsedLine));
     }
 }
