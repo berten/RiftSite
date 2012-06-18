@@ -1,0 +1,1 @@
+20:35:57: ( 4 , T=P#R=G#353391833781596445 , T=N#R=O#9223372040713576347 , T=X#R=X#0 , T=X#R=X#0 , Nilus , Dreaded Longshot , 232 , 450563190 , Searing Vitality ) Dreaded Longshot suffers 232 Fire damage from Nilus's Searing Vitality. 

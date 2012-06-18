@@ -1,0 +1,1 @@
+20:32:56: ( 28 , T=P#R=R#353391833781567547 , T=P#R=C#353391833781720517 , T=X#R=X#0 , T=X#R=X#0 , Mimii , Arakki , 2836 , 1694762334 , Healing Invocation ) Mimii's Healing Invocation critically heals Arakki for 2836. (3762 overheal)

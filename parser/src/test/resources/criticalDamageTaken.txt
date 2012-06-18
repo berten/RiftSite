@@ -1,0 +1,1 @@
+20:32:47: ( 23 , T=N#R=O#9223372040713576302 , T=P#R=R#353391833781601547 , T=X#R=X#0 , T=X#R=X#0 , Dreaded Balemouth , Elfthryth , 8865 , 32 , attack ) Dreaded Balemouth's attack critically hits Elfthryth for 8865 Physical damage. 

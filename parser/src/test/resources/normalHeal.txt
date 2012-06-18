@@ -1,0 +1,1 @@
+20:23:29: ( 5 , T=P#R=R#353391833781680915 , T=P#R=R#353391833781577540 , T=X#R=X#0 , T=X#R=X#0 , Whopper , Polkahunter , 0 , 1283682214 , Radiant Spores ) Whopper's Radiant Spores heals Polkahunter for 0. (2001 overheal)
