@@ -16,6 +16,6 @@ public class AttackParser implements IParser {
     }
 
     public AttackAction handle(ParsedLine parsedLine) {
-        return new AttackAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(),parsedLine.getSecondsIntoFight());
+        return new AttackAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(),parsedLine.getSecondsIntoFight(),parsedLine.getDamageType());
     }
 }

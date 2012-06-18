@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class AttackActionTest {
 
-    private AttackAction attackAction = new AttackAction("Nilus", "Murdantix","skill",1,2);
+    private AttackAction attackAction = new AttackAction("Nilus", "Murdantix","skill",1,2,DamageTypeEnum.LIFE);
 
     @Test
     public void correctType() {
@@ -40,5 +40,9 @@ public class AttackActionTest {
     @Test
     public void hasSecondsIntoFight() {
         assertEquals(new Integer(2),attackAction.getSecondsIntoFight());
+    }
+    @Test
+    public void hasDamageType() {
+        assertSame(DamageTypeEnum.LIFE,attackAction.getDamageType());
     }
 }

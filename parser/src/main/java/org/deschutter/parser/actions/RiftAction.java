@@ -11,7 +11,7 @@ public class RiftAction {
     private final String skill;
     private final Integer secondsIntoFight;
 
-    public RiftAction(ActionTypeEnum actionType, String actor,String skill,Integer secondsIntoFight) {
+    public RiftAction(ActionTypeEnum actionType, String actor, String skill, Integer secondsIntoFight) {
         this.actionType = actionType;
         this.actor = actor;
         this.skill = skill;
@@ -25,7 +25,7 @@ public class RiftAction {
     public String getActor() {
         return actor;
     }
-    
+
     public String getSkill() {
         return skill;
     }
@@ -33,6 +33,4 @@ public class RiftAction {
     public Integer getSecondsIntoFight() {
         return secondsIntoFight;
     }
-    
-    
 }

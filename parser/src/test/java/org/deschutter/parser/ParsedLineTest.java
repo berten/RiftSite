@@ -1,6 +1,7 @@
 package org.deschutter.parser;
 
 import java.util.Date;
+import org.deschutter.parser.actions.DamageTypeEnum;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertSame;
@@ -36,5 +37,10 @@ public class ParsedLineTest {
     @Test
     public void maps_Amount() {
         assertEquals(new Integer(991),parsedLine.getAmount());
+    }
+    
+    @Test
+    public void maps_damageType(){
+        assertSame(DamageTypeEnum.LIFE,parsedLine.getDamageType());
     }
 }

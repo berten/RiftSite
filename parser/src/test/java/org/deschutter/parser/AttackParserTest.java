@@ -1,10 +1,12 @@
 package org.deschutter.parser;
 
 import org.deschutter.parser.actions.AttackAction;
+import org.deschutter.parser.actions.DamageTypeEnum;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -32,6 +34,7 @@ public class AttackParserTest {
         when(parsedLine.getSkill()).thenReturn(skill);
         when(parsedLine.getAmount()).thenReturn(amount);
         when(parsedLine.getSecondsIntoFight()).thenReturn(secondsIntoFight);
+        when(parsedLine.getDamageType()).thenReturn(DamageTypeEnum.LIFE);
         parser = new AttackParser();
 
         riftAction = parser.handle(parsedLine);
@@ -66,11 +69,14 @@ public class AttackParserTest {
     public void returnsCorrectAmount() {
         assertEquals(amount, riftAction.getAmount());
     }
-    
+
     @Test
     public void returnsCorrectTime() {
         assertEquals(secondsIntoFight, riftAction.getSecondsIntoFight());
     }
     
-    
+    @Test
+    public void returnsCorrectDamageType() {
+        assertSame(DamageTypeEnum.LIFE,riftAction.getDamageType());
+    }
 }

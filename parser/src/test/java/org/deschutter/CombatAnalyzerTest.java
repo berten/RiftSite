@@ -32,14 +32,12 @@ public class CombatAnalyzerTest {
         analyzer = new CombatAnalyzer(parsers);
     }
     
-    
     @Test
     public void analyse_callsParser_canHandle() {
         analyzer.analyze();
         verify(attackParser).canHandle(any(ParsedLine.class));
     }
-    
-    
+        
     @Test
     public void analyse_parserCanHandle_Must_handle() {
         when(attackParser.canHandle(any(ParsedLine.class))).thenReturn(Boolean.TRUE);
