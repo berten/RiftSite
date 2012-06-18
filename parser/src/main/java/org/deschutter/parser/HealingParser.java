@@ -9,13 +9,13 @@ import org.deschutter.parser.actions.HealingAction;
 public class HealingParser implements IParser {
 
     public Boolean canHandle(ParsedLine parsedLine) {
-        if (parsedLine.getType() == CombatTypeEnum.HEAL) {
+        if (parsedLine.getType() == CombatTypeEnum.HEAL || parsedLine.getType() == CombatTypeEnum.CRITICAL_HEAL) {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
     }
 
     public HealingAction handle(ParsedLine parsedLine) {
-        return new HealingAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(),parsedLine.getSecondsIntoFight());
+        return new HealingAction(parsedLine.getActor(), parsedLine.getTarget(), parsedLine.getSkill(), parsedLine.getAmount(),parsedLine.getSecondsIntoFight(),parsedLine.getType() == CombatTypeEnum.HEAL ? Boolean.FALSE : Boolean.TRUE);
     }
 }

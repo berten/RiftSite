@@ -3,6 +3,7 @@ package org.deschutter.parser.actions;
 import org.junit.Test;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  *
@@ -10,7 +11,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class HealingActionTest {
 
-    private HealingAction healingAction = new HealingAction("Nilus", "Khaet","skill",1,2);
+    private HealingAction healingAction = new HealingAction("Nilus", "Khaet","skill",1,2,Boolean.FALSE);
 
     @Test
     public void correctType() {
@@ -40,5 +41,10 @@ public class HealingActionTest {
     @Test
     public void hasSecondsIntoFight() {
         assertEquals(new Integer(2),healingAction.getSecondsIntoFight());
+    }
+    
+    @Test
+    public void hasCriticalHit() {
+        assertFalse(healingAction.isCriticalHit());
     }
 }

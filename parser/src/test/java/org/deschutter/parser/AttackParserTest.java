@@ -5,6 +5,7 @@ import org.deschutter.parser.actions.DamageTypeEnum;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
@@ -74,9 +75,22 @@ public class AttackParserTest {
     public void returnsCorrectTime() {
         assertEquals(secondsIntoFight, riftAction.getSecondsIntoFight());
     }
-    
+
     @Test
     public void returnsCorrectDamageType() {
-        assertSame(DamageTypeEnum.LIFE,riftAction.getDamageType());
+        assertSame(DamageTypeEnum.LIFE, riftAction.getDamageType());
+    }
+
+    @Test
+    public void typeNormalAttack_noCriticalHit() {
+        assertFalse(riftAction.isCriticalHit());
+    }
+
+    @Test
+    public void typeCriticalHit_criticalHit() {
+        when(parsedLine.getType()).thenReturn(CombatTypeEnum.CRITICAL_HIT);
+        assertTrue(parser.canHandle(parsedLine));
+        riftAction = parser.handle(parsedLine);
+        assertTrue(riftAction.isCriticalHit());
     }
 }

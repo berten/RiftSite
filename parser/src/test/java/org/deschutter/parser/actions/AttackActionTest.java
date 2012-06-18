@@ -3,6 +3,7 @@ package org.deschutter.parser.actions;
 import org.junit.Test;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -10,7 +11,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class AttackActionTest {
 
-    private AttackAction attackAction = new AttackAction("Nilus", "Murdantix","skill",1,2,DamageTypeEnum.LIFE);
+    private AttackAction attackAction = new AttackAction("Nilus", "Murdantix","skill",1,2,DamageTypeEnum.LIFE,Boolean.TRUE);
 
     @Test
     public void correctType() {
@@ -44,5 +45,10 @@ public class AttackActionTest {
     @Test
     public void hasDamageType() {
         assertSame(DamageTypeEnum.LIFE,attackAction.getDamageType());
+    }
+    
+     @Test
+    public void hasCriticalHit() {
+        assertTrue(attackAction.isCriticalHit());
     }
 }
