@@ -1,5 +1,7 @@
 package org.deschutter.parser;
 
+import org.deschutter.parser.actions.DamageTakenAction;
+import org.deschutter.parser.actions.DamageDoneAction;
 import org.deschutter.parser.actions.AttackAction;
 import org.deschutter.parser.actions.DamageTypeEnum;
 import org.junit.Before;
@@ -15,9 +17,9 @@ import static org.mockito.Mockito.when;
  *
  * @author berten
  */
-public class AttackParserTest {
+public class DamageDoneParserTest {
 
-    AttackParser parser;
+    DamageDoneParser parser;
     private String actor = "Nilus";
     private Integer amount = new Integer(1);
     private Integer secondsIntoFight = new Integer(5);
@@ -42,7 +44,9 @@ public class AttackParserTest {
         when(parsedLine.getAbsorbed()).thenReturn(absorbed);
         when(parsedLine.getOverkill()).thenReturn(overkill);
         when(parsedLine.getBlocked()).thenReturn(blocked);
-        parser = new AttackParser();
+        
+        when(parsedLine.getActorIsInRaid()).thenReturn(Boolean.TRUE);
+        parser = new DamageDoneParser();
 
         riftAction = parser.handle(parsedLine);
     }
@@ -53,8 +57,14 @@ public class AttackParserTest {
     }
 
     @Test
+    public void actorNotInRaid_cantHandle() {
+        when(parsedLine.getActorIsInRaid()).thenReturn(Boolean.FALSE);
+        assertFalse(parser.canHandle(parsedLine));
+    }
+
+    @Test
     public void returnsCorrectType() {
-        assertTrue(parser.handle(parsedLine) instanceof AttackAction);
+        assertTrue(parser.handle(parsedLine) instanceof DamageDoneAction);
     }
 
     @Test

@@ -1,0 +1,16 @@
+[INFO] Scanning for projects...
+[INFO] Reactor build order: 
+[INFO]   Unnamed - rift:rift:pom:1.0
+[INFO]   Unnamed - rift:parser:jar:1.0
+[INFO]   Unnamed - rift:web:jar:1.0
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Invalid task 'Parsed': you must specify a valid lifecycle phase, or a goal in the format plugin:goal or pluginGroupId:pluginArtifactId:pluginVersion:goal
+[INFO] ------------------------------------------------------------------------
+[INFO] For more information, run Maven with the -e switch
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: < 1 second
+[INFO] Finished at: Mon Jun 18 15:31:15 CEST 2012
+[INFO] Final Memory: 4M/77M
+[INFO] ------------------------------------------------------------------------

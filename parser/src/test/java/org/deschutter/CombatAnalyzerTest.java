@@ -1,14 +1,12 @@
 package org.deschutter;
 
+import org.deschutter.parser.DamageDoneParser;
 import java.io.FileReader;
 import org.deschutter.parser.exception.FileNullException;
-import java.io.File;
 import org.deschutter.parser.ParsedLine;
-import java.util.Map;
 import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
-import org.deschutter.parser.AttackParser;
 import org.deschutter.parser.IParser;
 import org.junit.Before;
 import org.springframework.stereotype.Component;
@@ -30,7 +28,7 @@ public class CombatAnalyzerTest {
 
     @Before
     public void setUp() {
-        attackParser = mock(AttackParser.class);
+        attackParser = mock(DamageDoneParser.class);
         parsers = Arrays.asList(attackParser);
         analyzer = new CombatAnalyzer(parsers);
     }

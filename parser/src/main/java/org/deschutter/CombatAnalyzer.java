@@ -40,7 +40,6 @@ public class CombatAnalyzer {
             BufferedReader reader = new BufferedReader(file);
             while ((line = reader.readLine()) != null) {
                 final ParsedLine parsedLine = new ParsedLine(new Date(), line);
-                System.out.println(parsedLine);
                 for (IParser parser : parsers) {
                     if (parser.canHandle(parsedLine)) {
                         fight.addAction(parser.handle(parsedLine));

@@ -23,6 +23,9 @@ public class ParsedLine {
     private Integer overheal = 0;
     private Integer overkill = 0;
     
+    private Boolean actorIsInRaid = Boolean.FALSE;
+    private Boolean targetIsInRaid = Boolean.FALSE;
+    
     //Todo this isn't clean at all - fix this!!
     public ParsedLine(Date fightStartTime, String line) {
         this.line = line;
@@ -32,6 +35,14 @@ public class ParsedLine {
             final String[] split = splitted[1].split(",");
 
             this.typeInteger = split[0].trim();
+            // Calculate actor is in raid
+            final String[] actor = split[1].trim().split("#");
+            this.actorIsInRaid = !actor[1].trim().equals("R=O");
+            
+            // Calculate actor is in raid
+            final String[] target = split[2].trim().split("#");
+            this.targetIsInRaid = !target[1].trim().equals("R=O");
+            
             this.actor = split[5].trim();
             final String lastPart = split[9].trim();
 
@@ -124,7 +135,15 @@ public class ParsedLine {
     public Integer getOverkill() {
         return overkill;
     }
-    
+
+    public Boolean getActorIsInRaid() {
+        return actorIsInRaid;
+    }
+
+    public Boolean getTargetIsInRaid() {
+        return targetIsInRaid;
+    }
+
     public String toString() {
         return "ParsedLine{" + "line=" + line + ", typeInteger=" + typeInteger + ", actor=" + actor + ", target=" + target + ", skill=" + skill + ", amount=" + amount + ", secondsIntoFight=" + secondsIntoFight + ", damageType=" + damageType + '}';
     }
