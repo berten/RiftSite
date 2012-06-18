@@ -1,0 +1,1 @@
+20:36:20: ( 3 , T=N#R=O#9223372040713576359 , T=P#R=R#353391833781601547 , T=X#R=X#0 , T=X#R=X#0 , Dreaded Deathkeg , Elfthryth , 3467 , 32 , attack ) Dreaded Deathkeg's attack hits Elfthryth for 3467 Physical damage. (8623 blocked)
