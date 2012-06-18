@@ -46,6 +46,7 @@ public class CombatAnalyzer {
                     }
                 }
             }
+            reader.close();
         } catch (IOException ex) {
         }
 
