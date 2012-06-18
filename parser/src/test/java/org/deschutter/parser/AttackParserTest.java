@@ -93,4 +93,12 @@ public class AttackParserTest {
         riftAction = parser.handle(parsedLine);
         assertTrue(riftAction.isCriticalHit());
     }
+    
+    @Test
+    public void dot_noCriticalHit() {
+        when(parsedLine.getType()).thenReturn(CombatTypeEnum.DOT);
+        assertTrue(parser.canHandle(parsedLine));
+        riftAction = parser.handle(parsedLine);
+        assertFalse(riftAction.isCriticalHit());
+    }
 }
