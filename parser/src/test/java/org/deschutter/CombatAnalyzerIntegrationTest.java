@@ -32,7 +32,7 @@ public class CombatAnalyzerIntegrationTest {
 
         assertEquals(1, fight.getActions().size());
         RiftAction action = fight.getActions().get(0);
-        assertTrue(action instanceof AttackAction);
+        assertTrue(action instanceof DamageDoneAction);
         AttackAction attackAction = (AttackAction) action;
 
         assertEquals("Arakki", attackAction.getActor());
@@ -54,7 +54,7 @@ public class CombatAnalyzerIntegrationTest {
 
         assertEquals(1, fight.getActions().size());
         RiftAction action = fight.getActions().get(0);
-        assertTrue(action instanceof AttackAction);
+        assertTrue(action instanceof DamageTakenAction);
         AttackAction attackAction = (AttackAction) action;
 
         assertEquals("Dreaded Deathkeg", attackAction.getActor());
