@@ -1,0 +1,1 @@
+20:23:31: ( 3 , T=P#R=C#353391833781720517 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Arakki , Rusila Dreadblade , 154 , 132851269 , Lethal Poison ) Arakki's Lethal Poison hits Rusila Dreadblade for 154 Water damage.

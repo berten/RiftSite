@@ -1,5 +1,8 @@
 package org.deschutter;
 
+import java.io.FileReader;
+import org.deschutter.parser.exception.FileNullException;
+import java.io.File;
 import org.deschutter.parser.ParsedLine;
 import java.util.Map;
 import org.junit.Test;
@@ -33,15 +36,20 @@ public class CombatAnalyzerTest {
     }
     
     @Test
-    public void analyse_callsParser_canHandle() {
-        analyzer.analyze();
+    public void analyse_callsParser_canHandle() throws Exception {
+        analyzer.analyze(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
         verify(attackParser).canHandle(any(ParsedLine.class));
     }
         
     @Test
-    public void analyse_parserCanHandle_Must_handle() {
+    public void analyse_parserCanHandle_Must_handle() throws Exception {
         when(attackParser.canHandle(any(ParsedLine.class))).thenReturn(Boolean.TRUE);
-        analyzer.analyze();
+        analyzer.analyze(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
         verify(attackParser).handle(any(ParsedLine.class));
+    }
+    
+    @Test(expected = FileNullException.class)
+    public void nullFile_givesError() {
+        analyzer.analyze(null);
     }
 }

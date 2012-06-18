@@ -1,11 +1,13 @@
 package org.deschutter.parser;
 
 import org.deschutter.parser.actions.HealingAction;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author berten
  */
+@Component
 public class HealingParser implements IParser {
 
     public Boolean canHandle(ParsedLine parsedLine) {

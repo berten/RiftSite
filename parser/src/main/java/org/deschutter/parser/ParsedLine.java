@@ -83,4 +83,10 @@ public class ParsedLine {
     public DamageTypeEnum getDamageType() {
         return damageType;
     }
+
+    public String toString() {
+        return "ParsedLine{" + "line=" + line + ", typeInteger=" + typeInteger + ", actor=" + actor + ", target=" + target + ", skill=" + skill + ", amount=" + amount + ", secondsIntoFight=" + secondsIntoFight + ", damageType=" + damageType + '}';
+    }
+    
+    
 }
