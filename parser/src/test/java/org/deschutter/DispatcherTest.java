@@ -1,5 +1,6 @@
 package org.deschutter;
 
+import org.deschutter.analyzer.FightAnalyzer;
 import org.deschutter.parser.DamageDoneParser;
 import java.io.FileReader;
 import org.deschutter.parser.exception.FileNullException;
@@ -21,6 +22,7 @@ import static org.mockito.Matchers.any;
  */
 @Component
 public class DispatcherTest {
+    private FightAnalyzer analyzer;
 
     private List<IParser> parsers;
     IParser attackParser;
@@ -30,7 +32,8 @@ public class DispatcherTest {
     public void setUp() {
         attackParser = mock(DamageDoneParser.class);
         parsers = Arrays.asList(attackParser);
-        dispatcher = new Dispatcher(parsers);
+        analyzer = mock(FightAnalyzer.class);
+        dispatcher = new Dispatcher(parsers, analyzer);
     }
     
     @Test
@@ -44,6 +47,11 @@ public class DispatcherTest {
         when(attackParser.canHandle(any(ParsedLine.class))).thenReturn(Boolean.TRUE);
         dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
         verify(attackParser).handle(any(ParsedLine.class));
+    }
+    @Test
+    public void dispatch_CallsAnalyzer() throws Exception {
+         dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
+         verify(analyzer).analyzeFight(any(Fight.class));
     }
     
     @Test(expected = FileNullException.class)

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.deschutter.analyzer.FightAnalyzer;
 import org.deschutter.parser.IParser;
 import org.deschutter.parser.ParsedLine;
 import org.deschutter.parser.exception.FileNullException;
@@ -20,13 +21,15 @@ import org.springframework.stereotype.Service;
 public class Dispatcher {
 
     private List<IParser> parsers;
+    private FightAnalyzer analyzer;
 
     @Autowired
-    public Dispatcher(List<IParser> parsers) {
+    public Dispatcher(List<IParser> parsers,FightAnalyzer analyzer) {
         this.parsers = parsers;
+        this.analyzer = analyzer;
     }
 
-    List<Fight> dispatch(FileReader file) {
+    public void dispatch(FileReader file) {
         List<Fight> fights = new ArrayList<>();
         if (file == null) {
             throw new FileNullException();
@@ -35,7 +38,6 @@ public class Dispatcher {
         try {
 
             Fight fight = new Fight();
-            fights.add(fight);
             String line = null;
             BufferedReader reader = new BufferedReader(file);
             Date fightDate = null;
@@ -50,10 +52,11 @@ public class Dispatcher {
                     }
                 }
             }
+            
+            
             reader.close();
+            analyzer.analyzeFight(fight);
         } catch (IOException ex) {
         }
-
-        return fights;
     }
 }
