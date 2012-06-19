@@ -27,7 +27,7 @@ public class DamageDoneAnalyzerTest {
         analyzedFight = new AnalyzedFight();
         analyzer.analyze(analyzedFight, new DamageDoneAction("Nilus", "Murdantix", "Fireball", 3458, 1, DamageTypeEnum.FIRE, Boolean.FALSE, 0, 0, 0, 0));
         assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus"));
-        assertEquals(new Double(1729), analyzedFight.getDamagePerSecond("Nilus"));
+        assertEquals(new Double(1729), analyzedFight.getDamageDonePerSecond("Nilus"));
         assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus", "Fireball"));
     }
 
@@ -38,7 +38,7 @@ public class DamageDoneAnalyzerTest {
         analyzer.analyze(analyzedFight, new DamageDoneAction("Nilus", "Murdantix", "Flame Bolt", 3848, 1, DamageTypeEnum.FIRE, Boolean.FALSE, 0, 0, 0, 0));
 
         assertEquals(new Integer(7306), analyzedFight.getDamageDone("Nilus"));
-        assertEquals(new Double(3653), analyzedFight.getDamagePerSecond("Nilus"));
+        assertEquals(new Double(3653), analyzedFight.getDamageDonePerSecond("Nilus"));
         assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus", "Fireball"));
         assertEquals(new Integer(3848), analyzedFight.getDamageDone("Nilus", "Flame Bolt"));
     }
@@ -51,13 +51,13 @@ public class DamageDoneAnalyzerTest {
         analyzer.analyze(analyzedFight, new DamageDoneAction("Xetion", "Murdantix", "Flame Bolt", 4138, 1, DamageTypeEnum.FIRE, Boolean.FALSE, 0, 0, 0, 0));
 
         assertEquals(new Integer(7306), analyzedFight.getDamageDone("Nilus"));
-        assertEquals(new Double(3653), analyzedFight.getDamagePerSecond("Nilus"));
+        assertEquals(new Double(3653), analyzedFight.getDamageDonePerSecond("Nilus"));
         assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus", "Fireball"));
         assertEquals(new Integer(3848), analyzedFight.getDamageDone("Nilus", "Flame Bolt"));
 
 
         assertEquals(new Integer(4138), analyzedFight.getDamageDone("Xetion"));
-        assertEquals(new Double(2069), analyzedFight.getDamagePerSecond("Xetion"));
+        assertEquals(new Double(2069), analyzedFight.getDamageDonePerSecond("Xetion"));
         assertEquals(new Integer(4138), analyzedFight.getDamageDone("Xetion", "Flame Bolt"));
     }
 

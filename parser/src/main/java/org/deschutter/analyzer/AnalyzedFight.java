@@ -3,6 +3,7 @@ package org.deschutter.analyzer;
 import java.util.ArrayList;
 import java.util.List;
 import org.deschutter.analyzer.damagedone.DamageDone;
+import org.deschutter.analyzer.damagetaken.DamageTaken;
 
 /**
  *
@@ -12,6 +13,7 @@ public class AnalyzedFight {
 
     private Integer duration = 0;
     private List<DamageDone> damageDone = new ArrayList<>();
+    private List<DamageTaken> damageTaken = new ArrayList<>();
 
     public void setDuration(Integer secondsIntoFight) {
         this.duration = secondsIntoFight + 1;
@@ -25,7 +27,7 @@ public class AnalyzedFight {
         return getDamageDoneContainer(name).getTotalDamage(ability);
     }
 
-    public Double getDamagePerSecond(String name) {
+    public Double getDamageDonePerSecond(String name) {
         return new Double(getDamageDone(name)) / new Double(duration);
     }
 
@@ -45,13 +47,43 @@ public class AnalyzedFight {
         getDamageDoneContainer(actor).addDamage(amount, ability);
     }
 
-    public String toString() {
-        return "AnalyzedFight{" + "duration=" + duration + ", damageDone=" + damageDone + '}';
-    }
-
     public List<DamageDone> getDamageDone() {
         return damageDone;
     }
-    
-    
+
+    public Integer getDamageTaken(String name) {
+        return getDamageTakenContainer(name).getTotalDamage();
+    }
+
+    public Integer getDamageTaken(String name, String ability) {
+        return getDamageTakenContainer(name).getTotalDamage(ability);
+    }
+
+    public Double getDamageTakenPerSecond(String name) {
+        return new Double(getDamageTaken(name)) / new Double(duration);
+    }
+
+    private DamageTaken getDamageTakenContainer(String name) {
+        for (DamageTaken damage : damageTaken) {
+            if (damage.getName().equals(name)) {
+                return damage;
+            }
+
+        }
+        final DamageTaken newDamageTaken = new DamageTaken(name);
+        damageTaken.add(newDamageTaken);
+        return newDamageTaken;
+    }
+
+    public void addDamageTaken(String target, Integer amount, String ability) {
+        getDamageTakenContainer(target).addDamage(amount, ability);
+    }
+
+    public List<DamageTaken> getDamageTaken() {
+        return damageTaken;
+    }
+
+    public String toString() {
+        return "AnalyzedFight{" + "duration=" + duration + ", damageDone=" + damageDone + '}';
+    }
 }
