@@ -19,8 +19,8 @@ public class DamageTakenAnalyzer implements IAnalyzer {
         if (action instanceof DamageTakenAction) {
             final DamageTakenAction damageTakenAction = (DamageTakenAction) action;
 
-            fight.addDamageTaken(damageTakenAction.getTarget(), damageTakenAction.getAmount(), damageTakenAction.getSkill());
-            fight.setDuration(action.getSecondsIntoFight());
+            fight.addDamageTaken(damageTakenAction.getSecondsIntoFight(), damageTakenAction.getTarget(), damageTakenAction.getAmount(), damageTakenAction.getSkill());
+
         }
     }
 }

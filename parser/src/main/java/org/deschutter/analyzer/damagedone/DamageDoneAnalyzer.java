@@ -17,9 +17,9 @@ public class DamageDoneAnalyzer implements IAnalyzer {
     public void analyze(AnalyzedFight fight, RiftAction action) {
         if (action instanceof DamageDoneAction) {
             final DamageDoneAction damageDoneAction = (DamageDoneAction) action;
-            
-            fight.addDamageDone(action.getActor(), damageDoneAction.getAmount(),damageDoneAction.getSkill());
-            fight.setDuration(action.getSecondsIntoFight());
+
+            fight.addDamageDone(action.getSecondsIntoFight(), action.getActor(), damageDoneAction.getAmount(), damageDoneAction.getSkill());
+
         }
     }
 }

@@ -15,21 +15,7 @@ public class AnalyzedFight {
     private List<DamageDone> damageDone = new ArrayList<>();
     private List<DamageTaken> damageTaken = new ArrayList<>();
 
-    public void setDuration(Integer secondsIntoFight) {
-        this.duration = secondsIntoFight + 1;
-    }
 
-    public Integer getDamageDone(String name) {
-        return getDamageDoneContainer(name).getTotalDamage();
-    }
-
-    public Integer getDamageDone(String name, String ability) {
-        return getDamageDoneContainer(name).getTotalDamage(ability);
-    }
-
-    public Double getDamageDonePerSecond(String name) {
-        return new Double(getDamageDone(name)) / new Double(duration);
-    }
 
     private DamageDone getDamageDoneContainer(String name) {
         for (DamageDone damage : damageDone) {
@@ -43,24 +29,22 @@ public class AnalyzedFight {
         return newDamageDone;
     }
 
-    public void addDamageDone(String actor, Integer amount, String ability) {
-        getDamageDoneContainer(actor).addDamage(amount, ability);
+    public void addDamageDone(Integer secondsIntoFight,String actor, Integer amount, String ability) {
+        if(duration < secondsIntoFight +1)
+        this.duration = secondsIntoFight + 1;
+        getDamageDoneContainer(actor).addDamage(amount, ability,duration);
     }
 
     public List<DamageDone> getDamageDone() {
         return damageDone;
     }
 
-    public Integer getDamageTaken(String name) {
-        return getDamageTakenContainer(name).getTotalDamage();
+    public DamageDone getDamageDone(String name) {
+        return getDamageDoneContainer(name);
     }
 
-    public Integer getDamageTaken(String name, String ability) {
-        return getDamageTakenContainer(name).getTotalDamage(ability);
-    }
-
-    public Double getDamageTakenPerSecond(String name) {
-        return new Double(getDamageTaken(name)) / new Double(duration);
+    public DamageTaken getDamageTaken(String name) {
+        return getDamageTakenContainer(name);
     }
 
     private DamageTaken getDamageTakenContainer(String name) {
@@ -75,8 +59,10 @@ public class AnalyzedFight {
         return newDamageTaken;
     }
 
-    public void addDamageTaken(String target, Integer amount, String ability) {
-        getDamageTakenContainer(target).addDamage(amount, ability);
+    public void addDamageTaken(Integer secondsIntoFight,String target, Integer amount, String ability) {
+        if(this.duration < secondsIntoFight + 1)
+            duration = secondsIntoFight + 1;
+        getDamageTakenContainer(target).addDamage(amount, ability,duration);
     }
 
     public List<DamageTaken> getDamageTaken() {
@@ -86,4 +72,10 @@ public class AnalyzedFight {
     public String toString() {
         return "AnalyzedFight{" + "duration=" + duration + ", damageDone=" + damageDone + '}';
     }
+
+    public Integer getDuration() {
+        return duration;
+    }
+    
+    
 }

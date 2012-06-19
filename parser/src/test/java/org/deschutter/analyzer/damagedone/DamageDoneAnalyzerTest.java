@@ -26,9 +26,11 @@ public class DamageDoneAnalyzerTest {
     public void one_Attack_registers_damage_done() {
         analyzedFight = new AnalyzedFight();
         analyzer.analyze(analyzedFight, new DamageDoneAction("Nilus", "Murdantix", "Fireball", 3458, 1, DamageTypeEnum.FIRE, Boolean.FALSE, 0, 0, 0, 0));
-        assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus"));
-        assertEquals(new Double(1729), analyzedFight.getDamageDonePerSecond("Nilus"));
-        assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus", "Fireball"));
+        assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus").getTotalDamage());
+        assertEquals(new Double(1729), analyzedFight.getDamageDone("Nilus").getDamagePerSecond());
+        assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus").getAbility("Fireball").getTotalDamage());
+        assertEquals(1, analyzedFight.getDamageDone("Nilus").getAbility("Fireball").getHits().size());
+        assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus").getAbility("Fireball").getBiggestHit());
     }
 
     @Test
@@ -37,10 +39,10 @@ public class DamageDoneAnalyzerTest {
         analyzer.analyze(analyzedFight, new DamageDoneAction("Nilus", "Murdantix", "Fireball", 3458, 0, DamageTypeEnum.FIRE, Boolean.FALSE, 0, 0, 0, 0));
         analyzer.analyze(analyzedFight, new DamageDoneAction("Nilus", "Murdantix", "Flame Bolt", 3848, 1, DamageTypeEnum.FIRE, Boolean.FALSE, 0, 0, 0, 0));
 
-        assertEquals(new Integer(7306), analyzedFight.getDamageDone("Nilus"));
-        assertEquals(new Double(3653), analyzedFight.getDamageDonePerSecond("Nilus"));
-        assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus", "Fireball"));
-        assertEquals(new Integer(3848), analyzedFight.getDamageDone("Nilus", "Flame Bolt"));
+        assertEquals(new Integer(7306), analyzedFight.getDamageDone("Nilus").getTotalDamage());
+        assertEquals(new Double(3653), analyzedFight.getDamageDone("Nilus").getDamagePerSecond());
+        assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus").getAbility("Fireball").getTotalDamage());
+        assertEquals(new Integer(3848), analyzedFight.getDamageDone("Nilus").getAbility("Flame Bolt").getTotalDamage());
     }
 
     @Test
@@ -50,15 +52,16 @@ public class DamageDoneAnalyzerTest {
         analyzer.analyze(analyzedFight, new DamageDoneAction("Nilus", "Murdantix", "Flame Bolt", 3848, 1, DamageTypeEnum.FIRE, Boolean.FALSE, 0, 0, 0, 0));
         analyzer.analyze(analyzedFight, new DamageDoneAction("Xetion", "Murdantix", "Flame Bolt", 4138, 1, DamageTypeEnum.FIRE, Boolean.FALSE, 0, 0, 0, 0));
 
-        assertEquals(new Integer(7306), analyzedFight.getDamageDone("Nilus"));
-        assertEquals(new Double(3653), analyzedFight.getDamageDonePerSecond("Nilus"));
-        assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus", "Fireball"));
-        assertEquals(new Integer(3848), analyzedFight.getDamageDone("Nilus", "Flame Bolt"));
+        assertEquals(new Integer(7306), analyzedFight.getDamageDone("Nilus").getTotalDamage());
+        assertEquals(new Double(3653), analyzedFight.getDamageDone("Nilus").getDamagePerSecond());
+        assertEquals(new Integer(3458), analyzedFight.getDamageDone("Nilus").getAbility("Fireball").getTotalDamage());
+        assertEquals(new Integer(3848), analyzedFight.getDamageDone("Nilus").getAbility("Flame Bolt").getTotalDamage());
+        assertEquals(new Integer(3848), analyzedFight.getDamageDone("Nilus").getAbility("Flame Bolt").getTotalDamage());
 
 
-        assertEquals(new Integer(4138), analyzedFight.getDamageDone("Xetion"));
-        assertEquals(new Double(2069), analyzedFight.getDamageDonePerSecond("Xetion"));
-        assertEquals(new Integer(4138), analyzedFight.getDamageDone("Xetion", "Flame Bolt"));
+        assertEquals(new Integer(4138), analyzedFight.getDamageDone("Xetion").getTotalDamage());
+        assertEquals(new Double(2069), analyzedFight.getDamageDone("Xetion").getDamagePerSecond());
+        assertEquals(new Integer(4138), analyzedFight.getDamageDone("Xetion").getAbility("Flame Bolt").getTotalDamage());
     }
 
     @Test
