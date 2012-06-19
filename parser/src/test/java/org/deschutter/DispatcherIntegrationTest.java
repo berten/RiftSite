@@ -18,14 +18,14 @@ import static org.junit.Assert.assertFalse;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
-public class CombatAnalyzerIntegrationTest {
+public class DispatcherIntegrationTest {
 
     @Autowired
-    private CombatAnalyzer combatAnalyzer;
+    private Dispatcher combatAnalyzer;
 
     @Test
     public void normalAttack_GetsParsed() throws Exception {
-        final List<Fight> fights = combatAnalyzer.analyze(new FileReader(System.getProperty("user.dir") + "/src/test/resources/normalAttack.txt"));
+        final List<Fight> fights = combatAnalyzer.dispatch(new FileReader(System.getProperty("user.dir") + "/src/test/resources/normalAttack.txt"));
 
         assertEquals(1, fights.size());
         Fight fight = fights.get(0);
@@ -49,7 +49,7 @@ public class CombatAnalyzerIntegrationTest {
     
    @Test
     public void dot_GetsParsed() throws Exception {
-        final List<Fight> fights = combatAnalyzer.analyze(new FileReader(System.getProperty("user.dir") + "/src/test/resources/dotAttack.txt"));
+        final List<Fight> fights = combatAnalyzer.dispatch(new FileReader(System.getProperty("user.dir") + "/src/test/resources/dotAttack.txt"));
 
         assertEquals(1, fights.size());
         Fight fight = fights.get(0);
@@ -74,7 +74,7 @@ public class CombatAnalyzerIntegrationTest {
 
     @Test
     public void critical_Attack_GetsParsed() throws Exception {
-        final List<Fight> fights = combatAnalyzer.analyze(new FileReader(System.getProperty("user.dir") + "/src/test/resources/criticalAttack.txt"));
+        final List<Fight> fights = combatAnalyzer.dispatch(new FileReader(System.getProperty("user.dir") + "/src/test/resources/criticalAttack.txt"));
 
         assertEquals(1, fights.size());
         Fight fight = fights.get(0);
@@ -99,7 +99,7 @@ public class CombatAnalyzerIntegrationTest {
 
     @Test
     public void normalDamgeTaken_GetsParsed() throws Exception {
-        final List<Fight> fights = combatAnalyzer.analyze(new FileReader(System.getProperty("user.dir") + "/src/test/resources/normalDamageTaken.txt"));
+        final List<Fight> fights = combatAnalyzer.dispatch(new FileReader(System.getProperty("user.dir") + "/src/test/resources/normalDamageTaken.txt"));
 
         assertEquals(1, fights.size());
         Fight fight = fights.get(0);
@@ -123,7 +123,7 @@ public class CombatAnalyzerIntegrationTest {
 
     @Test
     public void criticalDamgeTaken_GetsParsed() throws Exception {
-        final List<Fight> fights = combatAnalyzer.analyze(new FileReader(System.getProperty("user.dir") + "/src/test/resources/criticalDamageTaken.txt"));
+        final List<Fight> fights = combatAnalyzer.dispatch(new FileReader(System.getProperty("user.dir") + "/src/test/resources/criticalDamageTaken.txt"));
 
         assertEquals(1, fights.size());
         Fight fight = fights.get(0);
@@ -147,7 +147,7 @@ public class CombatAnalyzerIntegrationTest {
 
     @Test
     public void normalHeal_GetsParsed() throws Exception {
-        final List<Fight> fights = combatAnalyzer.analyze(new FileReader(System.getProperty("user.dir") + "/src/test/resources/normalHeal.txt"));
+        final List<Fight> fights = combatAnalyzer.dispatch(new FileReader(System.getProperty("user.dir") + "/src/test/resources/normalHeal.txt"));
 
         assertEquals(1, fights.size());
         Fight fight = fights.get(0);
@@ -168,7 +168,7 @@ public class CombatAnalyzerIntegrationTest {
 
     @Test
     public void criticalHeal_GetsParsed() throws Exception {
-        final List<Fight> fights = combatAnalyzer.analyze(new FileReader(System.getProperty("user.dir") + "/src/test/resources/criticalHeal.txt"));
+        final List<Fight> fights = combatAnalyzer.dispatch(new FileReader(System.getProperty("user.dir") + "/src/test/resources/criticalHeal.txt"));
 
         assertEquals(1, fights.size());
         Fight fight = fights.get(0);

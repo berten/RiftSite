@@ -20,34 +20,34 @@ import static org.mockito.Matchers.any;
  * @author berten
  */
 @Component
-public class CombatAnalyzerTest {
+public class DispatcherTest {
 
     private List<IParser> parsers;
     IParser attackParser;
-    CombatAnalyzer analyzer;
+    Dispatcher dispatcher;
 
     @Before
     public void setUp() {
         attackParser = mock(DamageDoneParser.class);
         parsers = Arrays.asList(attackParser);
-        analyzer = new CombatAnalyzer(parsers);
+        dispatcher = new Dispatcher(parsers);
     }
     
     @Test
     public void analyse_callsParser_canHandle() throws Exception {
-        analyzer.analyze(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
+        dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
         verify(attackParser).canHandle(any(ParsedLine.class));
     }
         
     @Test
     public void analyse_parserCanHandle_Must_handle() throws Exception {
         when(attackParser.canHandle(any(ParsedLine.class))).thenReturn(Boolean.TRUE);
-        analyzer.analyze(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
+        dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
         verify(attackParser).handle(any(ParsedLine.class));
     }
     
     @Test(expected = FileNullException.class)
     public void nullFile_givesError() {
-        analyzer.analyze(null);
+        dispatcher.dispatch(null);
     }
 }

@@ -62,8 +62,6 @@ public class ParsedLine {
             }
             
             calculateTimes(splitted[0].split(":"), fightStartTime);
-
-
         }
     }
 

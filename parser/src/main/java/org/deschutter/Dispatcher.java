@@ -17,16 +17,16 @@ import org.springframework.stereotype.Service;
  * @author berten
  */
 @Service
-public class CombatAnalyzer {
+public class Dispatcher {
 
     private List<IParser> parsers;
 
     @Autowired
-    public CombatAnalyzer(List<IParser> parsers) {
+    public Dispatcher(List<IParser> parsers) {
         this.parsers = parsers;
     }
 
-    List<Fight> analyze(FileReader file) {
+    List<Fight> dispatch(FileReader file) {
         List<Fight> fights = new ArrayList<>();
         if (file == null) {
             throw new FileNullException();
