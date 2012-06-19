@@ -1,5 +1,6 @@
 package org.deschutter.analyzer.damagedone;
 
+import org.deschutter.parser.actions.HealingAction;
 import org.deschutter.analyzer.AnalyzedFight;
 import org.deschutter.parser.actions.DamageDoneAction;
 import org.deschutter.parser.actions.DamageTypeEnum;
@@ -58,5 +59,13 @@ public class DamageDoneAnalyzerTest {
         assertEquals(new Integer(4138), analyzedFight.getDamageDone("Xetion"));
         assertEquals(new Double(2069), analyzedFight.getDamagePerSecond("Xetion"));
         assertEquals(new Integer(4138), analyzedFight.getDamageDone("Xetion", "Flame Bolt"));
+    }
+
+    @Test
+    public void healingAction_doesNot_register_damage_done() {
+        analyzedFight = new AnalyzedFight();
+        analyzer.analyze(analyzedFight, new HealingAction("Nilus", "Khaet", "Bloom", 3458, 0, Boolean.FALSE, 0));
+
+        assertEquals(0, analyzedFight.getDamageDone().size());
     }
 }

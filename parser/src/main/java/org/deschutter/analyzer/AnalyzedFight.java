@@ -48,4 +48,10 @@ public class AnalyzedFight {
     public String toString() {
         return "AnalyzedFight{" + "duration=" + duration + ", damageDone=" + damageDone + '}';
     }
+
+    public List<DamageDone> getDamageDone() {
+        return damageDone;
+    }
+    
+    
 }
