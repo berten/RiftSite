@@ -57,8 +57,8 @@ public class DamageAbility {
 
 
 
-    public Double getDamagePerSecond() {
-        return new Double(totalDamage / durationContainer.getDuration());
+    public Integer getDamagePerSecond() {
+        return totalDamage / durationContainer.getDuration();
     }
 
     public ArrayList<Hit> getHits() {

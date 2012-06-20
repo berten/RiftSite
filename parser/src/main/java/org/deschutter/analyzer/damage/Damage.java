@@ -12,7 +12,7 @@ public class Damage implements IContainDuration {
     private String name;
     private Integer totalDamage = 0;
     private List<DamageAbility> abilities = new ArrayList<>();
-    private Double damagePerSecond = 0d;
+    private Integer damagePerSecond = 0;
     private final AnalyzedFight fight;
 
     public Damage(String name, AnalyzedFight fight) {
@@ -29,7 +29,7 @@ public class Damage implements IContainDuration {
     }
 
     public void recalculateDamagePerSecond() {
-        this.damagePerSecond = new Double(totalDamage) / new Double(getDuration());
+        this.damagePerSecond = totalDamage / getDuration();
     }
 
     public void addDamage(Integer amount, String ability) {
@@ -57,7 +57,7 @@ public class Damage implements IContainDuration {
         return damageAbility;
     }
 
-    public Double getDamagePerSecond() {
+    public Integer getDamagePerSecond() {
         return damagePerSecond;
     }
 

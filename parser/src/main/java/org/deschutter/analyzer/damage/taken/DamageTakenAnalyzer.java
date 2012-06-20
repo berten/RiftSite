@@ -1,4 +1,4 @@
-package org.deschutter.analyzer.damagetaken;
+package org.deschutter.analyzer.damage.taken;
 
 import org.deschutter.analyzer.AnalyzedFight;
 import org.deschutter.analyzer.IAnalyzer;

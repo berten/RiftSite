@@ -5,7 +5,7 @@ import org.deschutter.parser.actions.DamageDoneAction;
 import org.deschutter.Fight;
 import java.util.ArrayList;
 import java.util.List;
-import org.deschutter.analyzer.damagedone.DamageDoneAnalyzer;
+import org.deschutter.analyzer.damage.done.DamageDoneAnalyzer;
 import org.deschutter.parser.actions.DamageTypeEnum;
 import org.junit.Before;
 import org.junit.Test;
