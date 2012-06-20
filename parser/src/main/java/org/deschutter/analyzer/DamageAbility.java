@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.deschutter.analyzer;
 
 import java.util.ArrayList;
@@ -11,28 +7,61 @@ import java.util.ArrayList;
  * @author berten
  */
 public class DamageAbility {
+    private final IContainDuration durationContainer;
 
-    private String name;
-    private ArrayList<Integer> hits = new ArrayList<>();
-    private Integer duration = 0;
+    private static class Hit {
 
-    public DamageAbility(String name) {
-        this.name = name;
-    }
+        private final Integer damage;
+        private final Integer absorbed;
+        private final Integer blocked;
+        private final Integer deflected;
 
-    public Integer getTotalDamage() {
-        Integer dmg = 0;
-        for (Integer hit : hits) {
-            dmg += hit;
+        public Hit(Integer damage, Integer absorbed, Integer blocked, Integer deflected) {
+            this.damage = damage;
+            this.absorbed = absorbed;
+            this.blocked = blocked;
+            this.deflected = deflected;
         }
-        return dmg;
+
+        public Integer getAbsorbed() {
+            return absorbed;
+        }
+
+        public Integer getBlocked() {
+            return blocked;
+        }
+
+        public Integer getDamage() {
+            return damage;
+        }
+
+        public Integer getDeflected() {
+            return deflected;
+        }
     }
+    private String name;
+    private ArrayList<Hit> hits = new ArrayList<>();
     
-    public Double getDamagePerSecond() {
-        return new Double(getTotalDamage() / duration);
+    
+    private Integer totalDamage = 0;
+    private Integer totalAbsorbed = 0;
+    private Integer totalDeflected = 0;
+    private Integer totalBlocked = 0;
+
+    public DamageAbility(String name,IContainDuration durationContainer) {
+        this.name = name;
+        this.durationContainer = durationContainer;
     }
 
-    public ArrayList<Integer> getHits() {
+ 
+
+
+
+    public Double getDamagePerSecond() {
+        return new Double(totalDamage / durationContainer.getDuration());
+    }
+
+    public ArrayList<Hit> getHits() {
         return hits;
     }
 
@@ -40,18 +69,39 @@ public class DamageAbility {
         return name;
     }
 
-    public void addHit(Integer hit,Integer duration) {
-        if (this.duration < duration) this.duration = duration;
-        hits.add(hit);
+    public void addHit(Integer hit, Integer absorbed, Integer blocked, Integer deflected) {
+        
+        totalAbsorbed += absorbed;
+        totalDamage += hit;
+        totalBlocked += blocked;
+        totalDeflected += deflected;
+        
+        hits.add(new Hit(hit, absorbed, blocked, deflected));
     }
 
     public Integer getBiggestHit() {
         Integer biggest = 0;
-        for (Integer hit : hits) {
-            if (hit > biggest) {
-                biggest = hit;
+        for (Hit hit : hits) {
+            if (hit.getDamage() > biggest) {
+                biggest = hit.getDamage();
             }
         }
         return biggest;
+    }
+
+    public Integer getTotalAbsorbed() {
+        return totalAbsorbed;
+    }
+
+    public Integer getTotalBlocked() {
+        return totalBlocked;
+    }
+
+    public Integer getTotalDamage() {
+        return totalDamage;
+    }
+
+    public Integer getTotalDeflected() {
+        return totalDeflected;
     }
 }

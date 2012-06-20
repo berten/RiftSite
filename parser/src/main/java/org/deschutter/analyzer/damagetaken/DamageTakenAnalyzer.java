@@ -2,7 +2,6 @@ package org.deschutter.analyzer.damagetaken;
 
 import org.deschutter.analyzer.AnalyzedFight;
 import org.deschutter.analyzer.IAnalyzer;
-import org.deschutter.parser.actions.DamageDoneAction;
 import org.deschutter.parser.actions.DamageTakenAction;
 import org.deschutter.parser.actions.RiftAction;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ public class DamageTakenAnalyzer implements IAnalyzer {
         if (action instanceof DamageTakenAction) {
             final DamageTakenAction damageTakenAction = (DamageTakenAction) action;
 
-            fight.addDamageTaken(damageTakenAction.getSecondsIntoFight(), damageTakenAction.getTarget(), damageTakenAction.getAmount(), damageTakenAction.getSkill());
+            fight.addDamageTaken(damageTakenAction.getSecondsIntoFight(), damageTakenAction.getTarget(), damageTakenAction.getAmount(), damageTakenAction.getSkill(),damageTakenAction.getAbsorbed(),damageTakenAction.getBlocked(),damageTakenAction.getDeflected());
 
         }
     }

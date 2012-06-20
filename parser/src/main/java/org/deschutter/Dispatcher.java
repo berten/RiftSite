@@ -37,11 +37,20 @@ public class Dispatcher {
 
         try {
 
-            Fight fight = new Fight();
+            Fight fight = null;
             String line = null;
             BufferedReader reader = new BufferedReader(file);
             Date fightDate = null;
             while ((line = reader.readLine()) != null) {
+                if(fight == null) {
+                    fight = new Fight();
+                }
+                
+                if(line.contains("Combat begins")) {
+                    analyzer.analyzeFight(fight);
+                    fight = new Fight();
+                }
+                
                 final ParsedLine parsedLine = new ParsedLine(fightDate, line);
                 if(fightDate == null) {
                     fightDate = parsedLine.getDate();

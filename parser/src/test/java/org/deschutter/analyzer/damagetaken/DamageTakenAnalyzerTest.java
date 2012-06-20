@@ -25,10 +25,16 @@ public class DamageTakenAnalyzerTest {
     @Test
     public void one_Attack_registers_damage_taken() {
         analyzedFight = new AnalyzedFight();
-        analyzer.analyze(analyzedFight, new DamageTakenAction("Akylios", "Nilus", "Fireball", 3458, 1, DamageTypeEnum.FIRE, Boolean.FALSE, 0, 0, 0, 0));
+        analyzer.analyze(analyzedFight, new DamageTakenAction("Akylios", "Nilus", "Fireball", 3458, 1, DamageTypeEnum.FIRE, Boolean.FALSE, 10, 20, 0, 30));
         assertEquals(new Integer(3458), analyzedFight.getDamageTaken("Nilus").getTotalDamage());
+        assertEquals(new Integer(10), analyzedFight.getDamageTaken("Nilus").getTotalBlocked());
+        assertEquals(new Integer(20), analyzedFight.getDamageTaken("Nilus").getTotalAbsorbed());
+        assertEquals(new Integer(30), analyzedFight.getDamageTaken("Nilus").getTotalDeflected());
         assertEquals(new Double(1729), analyzedFight.getDamageTaken("Nilus").getDamagePerSecond());
         assertEquals(new Integer(3458), analyzedFight.getDamageTaken("Nilus").getAbility("Fireball").getTotalDamage());
+        assertEquals(new Integer(10), analyzedFight.getDamageTaken("Nilus").getAbility("Fireball").getTotalBlocked());
+        assertEquals(new Integer(20), analyzedFight.getDamageTaken("Nilus").getAbility("Fireball").getTotalAbsorbed());
+        assertEquals(new Integer(30), analyzedFight.getDamageTaken("Nilus").getAbility("Fireball").getTotalDeflected());
     }
 
     @Test
@@ -41,6 +47,8 @@ public class DamageTakenAnalyzerTest {
         assertEquals(new Double(3653), analyzedFight.getDamageTaken("Nilus").getDamagePerSecond());
         assertEquals(new Integer(3458), analyzedFight.getDamageTaken("Nilus").getAbility("Fireball").getTotalDamage());
         assertEquals(new Integer(3848), analyzedFight.getDamageTaken("Nilus").getAbility("Flame Bolt").getTotalDamage());
+        assertEquals(new Double(3458/2), analyzedFight.getDamageTaken("Nilus").getAbility("Fireball").getDamagePerSecond());
+        assertEquals(new Double(3848/2), analyzedFight.getDamageTaken("Nilus").getAbility("Flame Bolt").getDamagePerSecond());
     }
 
     @Test

@@ -15,8 +15,6 @@ public class AnalyzedFight {
     private List<DamageDone> damageDone = new ArrayList<>();
     private List<DamageTaken> damageTaken = new ArrayList<>();
 
-
-
     private DamageDone getDamageDoneContainer(String name) {
         for (DamageDone damage : damageDone) {
             if (damage.getName().equals(name)) {
@@ -24,15 +22,16 @@ public class AnalyzedFight {
             }
 
         }
-        final DamageDone newDamageDone = new DamageDone(name);
+        final DamageDone newDamageDone = new DamageDone(name,this);
         damageDone.add(newDamageDone);
         return newDamageDone;
     }
 
-    public void addDamageDone(Integer secondsIntoFight,String actor, Integer amount, String ability) {
-        if(duration < secondsIntoFight +1)
-        this.duration = secondsIntoFight + 1;
-        getDamageDoneContainer(actor).addDamage(amount, ability,duration);
+    public void addDamageDone(Integer secondsIntoFight, String actor, Integer amount, String ability, Integer absorbed, Integer blocked, Integer deflected) {
+        if (duration < secondsIntoFight + 1) {
+            this.duration = secondsIntoFight + 1;
+        }
+        getDamageDoneContainer(actor).addDamage(duration, amount, ability, absorbed, blocked, deflected);
     }
 
     public List<DamageDone> getDamageDone() {
@@ -54,15 +53,18 @@ public class AnalyzedFight {
             }
 
         }
-        final DamageTaken newDamageTaken = new DamageTaken(name);
+        final DamageTaken newDamageTaken = new DamageTaken(name,this);
         damageTaken.add(newDamageTaken);
         return newDamageTaken;
     }
 
-    public void addDamageTaken(Integer secondsIntoFight,String target, Integer amount, String ability) {
-        if(this.duration < secondsIntoFight + 1)
+    public void addDamageTaken(Integer secondsIntoFight, String target, Integer amount, String ability, Integer absorbed, Integer blocked, Integer deflected) {
+        if (this.duration < secondsIntoFight + 1) {
             duration = secondsIntoFight + 1;
-        getDamageTakenContainer(target).addDamage(amount, ability,duration);
+        }
+        getDamageTakenContainer(target).addDamage(amount, ability, absorbed, blocked, deflected);
+        
+       
     }
 
     public List<DamageTaken> getDamageTaken() {
@@ -76,6 +78,4 @@ public class AnalyzedFight {
     public Integer getDuration() {
         return duration;
     }
-    
-    
 }
