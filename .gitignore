@@ -1,2 +1,5 @@
 /parser/target/
 /web/target/
+/web/nb-configuration.xml
+/parser/nb-configuration.xml
+/nb-configuration.xml

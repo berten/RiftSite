@@ -2,18 +2,20 @@ package org.deschutter.analyzer;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.deschutter.analyzer.damagedone.DamageDone;
-import org.deschutter.analyzer.damagetaken.DamageTaken;
+import org.deschutter.analyzer.damage.done.DamageDone;
+import org.deschutter.analyzer.damage.taken.DamageTaken;
+import org.deschutter.analyzer.healing.done.HealingDone;
 
 /**
  *
  * @author berten
  */
-public class AnalyzedFight {
+public class AnalyzedFight implements IContainDuration{
 
     private Integer duration = 0;
     private List<DamageDone> damageDone = new ArrayList<>();
     private List<DamageTaken> damageTaken = new ArrayList<>();
+    private List<HealingDone> healingDone = new ArrayList<>();
 
     private DamageDone getDamageDoneContainer(String name) {
         for (DamageDone damage : damageDone) {
@@ -69,10 +71,6 @@ public class AnalyzedFight {
 
     public List<DamageTaken> getDamageTaken() {
         return damageTaken;
-    }
-
-    public String toString() {
-        return "AnalyzedFight{" + "duration=" + duration + ", damageDone=" + damageDone + '}';
     }
 
     public Integer getDuration() {
