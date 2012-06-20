@@ -31,7 +31,7 @@ public class AnalyzedFight {
         if (duration < secondsIntoFight + 1) {
             this.duration = secondsIntoFight + 1;
         }
-        getDamageDoneContainer(actor).addDamage(duration, amount, ability, absorbed, blocked, deflected);
+        getDamageDoneContainer(actor).addDamage(amount, ability);
     }
 
     public List<DamageDone> getDamageDone() {
