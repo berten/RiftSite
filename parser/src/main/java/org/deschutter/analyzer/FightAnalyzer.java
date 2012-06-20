@@ -26,7 +26,6 @@ public class FightAnalyzer {
         final AnalyzedFight analyzedFight = new AnalyzedFight();
         for (RiftAction action : fight.getActions()) {
             for (IAnalyzer analyzer : analyzers) {
-
                 analyzer.analyze(analyzedFight, action);
             }
         }

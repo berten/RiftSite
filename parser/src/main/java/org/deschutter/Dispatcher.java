@@ -62,7 +62,6 @@ public class Dispatcher {
                 }
             }
             
-            
             reader.close();
             analyzer.analyzeFight(fight);
         } catch (IOException ex) {
