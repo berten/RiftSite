@@ -36,14 +36,26 @@
         <filter-name>encoding-filter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>
+        com.opensymphony.module.sitemesh.filter.PageFilter
+        </filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>rift</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value></param-value>
-		</init-param>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value></param-value>
+        </init-param>
     </servlet>
     
     <servlet-mapping>
