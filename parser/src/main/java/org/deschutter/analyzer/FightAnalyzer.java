@@ -29,5 +29,6 @@ public class FightAnalyzer {
                 analyzer.analyze(analyzedFight, action);
             }
         }
+       analyzedFight.print();
     }
 }

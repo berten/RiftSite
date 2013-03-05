@@ -130,4 +130,10 @@ public class ParsedLineTest {
         parsedLine = new ParsedLine(new Date(), "20:23:29: ( 3 , T=P#R=O#353391833781567547 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Mimii , Rusila Dreadblade , 991 , 1843227230 , Life's Vengeance ) Mimii's Life's Vengeance hits Rusila Dreadblade for 991 Life damage. (13 blocked 39 absorbed 14 overkill 37 overheal)");
         assertFalse(parsedLine.getActorIsInRaid());
     }
+
+    @Test
+    public void maps_autoAttack_ranged() {
+        parsedLine = new ParsedLine(new Date(),"20:23:29: ( 10 , T=N#R=O#9223372036961659671 , T=N#R=O#9223372036961659671 , T=X#R=X#0 , T=X#R=X#0 , Banner of Zeal , Banner of Zeal , 0 , 1659400144 , Autoattack (Ranged) ) Banner of Zeal's Autoattack (Ranged) misses Banner of Zeal.");
+        assertFalse(parsedLine.getActorIsInRaid());
+    }
 }

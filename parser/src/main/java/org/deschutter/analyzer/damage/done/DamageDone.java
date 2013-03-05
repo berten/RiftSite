@@ -1,7 +1,7 @@
 package org.deschutter.analyzer.damage.done;
 
 import org.deschutter.analyzer.AnalyzedFight;
-import org.deschutter.analyzer.Damage;
+import org.deschutter.analyzer.damage.Damage;
 
 /**
  *

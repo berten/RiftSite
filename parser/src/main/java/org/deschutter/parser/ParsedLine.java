@@ -33,6 +33,7 @@ public class ParsedLine {
         this.line = line;
 
         if (!line.isEmpty()) {
+            line = line.replace("(Ranged)","Ranged");
             final String[] splitted = line.split("\\(");
             final String[] split = splitted[1].split(",");
 
@@ -129,9 +130,9 @@ public class ParsedLine {
             cal.add(Calendar.DATE, 1);
         }
 
-        this.date = cal.getTime();
 
-        secondsIntoFight = new Long((cal.getTime().getTime() - fightStartTime.getTime()) / 1000).intValue();
+        this.secondsIntoFight = new Long((cal.getTime().getTime() - fightStartTime.getTime()) / 1000).intValue();
+        this.date = cal.getTime();
     }
 
     public CombatTypeEnum getType() {

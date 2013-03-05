@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class ActorTargetActionTest {
 
-    private ActorTargetAction actorTargetAction = new ActorTargetAction(ActionTypeEnum.ATTACK, "actor", "target", "skill", 1, 2, Boolean.TRUE);
+    private ActorTargetAction actorTargetAction = new ActorTargetAction(ActionTypeEnum.ATTACK, "actor", "target", "skill", 1,  Boolean.TRUE);
 
     @Test
     public void hasType() {
@@ -34,17 +34,8 @@ public class ActorTargetActionTest {
     }
 
     @Test
-    public void hasAmount() {
-        assertEquals(new Integer(1), actorTargetAction.getAmount());
-    }
-
-    @Test
     public void hasSecondsIntoFight() {
-        assertEquals(new Integer(2), actorTargetAction.getSecondsIntoFight());
+        assertEquals(new Integer(1), actorTargetAction.getSecondsIntoFight());
     }
 
-    @Test
-    public void hasCriticalHit() {
-        assertTrue(actorTargetAction.isCriticalHit());
-    }
 }

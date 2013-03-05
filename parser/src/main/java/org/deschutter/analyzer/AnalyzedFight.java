@@ -3,8 +3,10 @@ package org.deschutter.analyzer;
 import java.util.ArrayList;
 import java.util.List;
 import org.deschutter.analyzer.damage.done.DamageDone;
+import org.deschutter.analyzer.damage.miss.Miss;
 import org.deschutter.analyzer.damage.taken.DamageTaken;
 import org.deschutter.analyzer.healing.done.HealingDone;
+import org.deschutter.parser.actions.MissAction;
 
 /**
  *
@@ -16,18 +18,19 @@ public class AnalyzedFight implements IContainDuration {
     private List<DamageDone> damageDone = new ArrayList<>();
     private List<DamageTaken> damageTaken = new ArrayList<>();
     private List<HealingDone> healingDone = new ArrayList<>();
+    private List<Miss> misses = new ArrayList<>();
 
     /*
      * Damage Done
      */
-    private DamageDone getDamageDoneContainer(String name) {
+    private DamageDone getDamageDoneContainer(String actor) {
         for (DamageDone damage : damageDone) {
-            if (damage.getName().equals(name)) {
+            if (damage.getName().equals(actor)) {
                 return damage;
             }
 
         }
-        final DamageDone newDamageDone = new DamageDone(name, this);
+        final DamageDone newDamageDone = new DamageDone(actor, this);
         damageDone.add(newDamageDone);
         return newDamageDone;
     }
@@ -108,5 +111,44 @@ public class AnalyzedFight implements IContainDuration {
             duration = secondsIntoFight + 1;
         }
         getHealingDoneContainer(actor).addHeal(skill, amount, overheal);
+    }
+
+    public void addMissAction(Integer secondsIntoFight, String actor,String skill,String target) {
+        if (this.duration < secondsIntoFight + 1) {
+            duration = secondsIntoFight + 1;
+        }
+        getMissContainer(actor).addMiss(target,skill);
+    }
+
+    private Miss getMissContainer(String actor) {
+        for (Miss miss : misses) {
+            if(miss.getActor().equals(actor)) {
+                      return miss;
+            }
+        }
+        Miss miss = new Miss(actor);
+        misses.add(miss) ;
+        return miss;
+    }
+
+    public List<Miss> getMisses() {
+        return misses;
+    }
+
+    public Miss getMiss(String nilus) {
+        return getMissContainer(nilus);
+    }
+
+    public void print() {
+        System.out.println("=================================================");
+        System.out.println("Fight Duration: " + duration + " seconds");
+        System.out.println("Damage Done");
+        for (DamageDone damage : damageDone) {
+            System.out.println(damage.getName() + " :" + damage.getTotalDamage() + " " + damage.getDamagePerSecond());
+        }
+        System.out.println("Healing Done");
+        for (HealingDone healing : healingDone) {
+            System.out.println(healing.getName()+ " :" + healing.getTotalHealing() + " " +healing.getHealingPerSecond());
+        }
     }
 }

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.deschutter.analyzer.FightAnalyzer;
 import org.deschutter.parser.IParser;
 import org.deschutter.parser.ParsedLine;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- *
  * @author berten
  */
 @Service
@@ -24,13 +24,12 @@ public class Dispatcher {
     private FightAnalyzer analyzer;
 
     @Autowired
-    public Dispatcher(List<IParser> parsers,FightAnalyzer analyzer) {
+    public Dispatcher(List<IParser> parsers, FightAnalyzer analyzer) {
         this.parsers = parsers;
         this.analyzer = analyzer;
     }
 
     public void dispatch(FileReader file) {
-        List<Fight> fights = new ArrayList<>();
         if (file == null) {
             throw new FileNullException();
         }
@@ -38,32 +37,46 @@ public class Dispatcher {
         try {
 
             Fight fight = null;
-            String line = null;
+            String line;
             BufferedReader reader = new BufferedReader(file);
             Date fightDate = null;
+            Boolean combatRolling = false;
             while ((line = reader.readLine()) != null) {
-                if(fight == null) {
+
+                if (fight == null) {
                     fight = new Fight();
                 }
-                
-                if(line.contains("Combat begins")) {
-                    analyzer.analyzeFight(fight);
+
+                if (line.contains("Combat Begin")) {
+                    System.out.println("###############################################");
+                    System.out.println("##################  START  ####################");
+                    System.out.println("###############################################");
+                    combatRolling = true;
                     fight = new Fight();
-                }
-                
-                final ParsedLine parsedLine = new ParsedLine(fightDate, line);
-                if(fightDate == null) {
-                    fightDate = parsedLine.getDate();
-                }
-                for (IParser parser : parsers) {
-                    if (parser.canHandle(parsedLine)) {
-                        fight.addAction(parser.handle(parsedLine));
+                    fightDate = null;
+                } else if (line.contains("Combat End")) {
+                    if (combatRolling) {
+                        analyzer.analyzeFight(fight);
+                        System.out.println("###############################################");
+                        System.out.println("##################   END   ####################");
+                        System.out.println("###############################################");
+                    }
+                    combatRolling = false;
+                } else {
+                    if (combatRolling) {
+                        final ParsedLine parsedLine = new ParsedLine(fightDate, line);
+                        if (fightDate == null) {
+                            fightDate = parsedLine.getDate();
+                        }
+                        for (IParser parser : parsers) {
+                            if (parser.canHandle(parsedLine)) {
+                                fight.addAction(parser.handle(parsedLine));
+                            }
+                        }
                     }
                 }
             }
-            
             reader.close();
-            analyzer.analyzeFight(fight);
         } catch (IOException ex) {
         }
     }

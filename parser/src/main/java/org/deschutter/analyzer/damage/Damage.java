@@ -1,4 +1,7 @@
-package org.deschutter.analyzer;
+package org.deschutter.analyzer.damage;
+
+import org.deschutter.analyzer.AnalyzedFight;
+import org.deschutter.analyzer.IContainDuration;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -20,10 +20,9 @@ import static org.mockito.Matchers.any;
  *
  * @author berten
  */
-@Component
+
 public class DispatcherTest {
     private FightAnalyzer analyzer;
-
     private List<IParser> parsers;
     IParser attackParser;
     Dispatcher dispatcher;
@@ -38,19 +37,19 @@ public class DispatcherTest {
     
     @Test
     public void analyse_callsParser_canHandle() throws Exception {
-        dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
+        dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/parser/src/test/resources/oneLineParse.txt"));
         verify(attackParser).canHandle(any(ParsedLine.class));
     }
         
     @Test
     public void analyse_parserCanHandle_Must_handle() throws Exception {
         when(attackParser.canHandle(any(ParsedLine.class))).thenReturn(Boolean.TRUE);
-        dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
+        dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/parser/src/test/resources/oneLineParse.txt"));
         verify(attackParser).handle(any(ParsedLine.class));
     }
     @Test
     public void dispatch_CallsAnalyzer() throws Exception {
-         dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/src/test/resources/oneLineParse.txt"));
+         dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/parser/src/test/resources/oneLineParse.txt"));
          verify(analyzer).analyzeFight(any(Fight.class));
     }
     

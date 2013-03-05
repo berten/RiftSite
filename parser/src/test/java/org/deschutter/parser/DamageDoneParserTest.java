@@ -1,15 +1,12 @@
 package org.deschutter.parser;
 
-import org.deschutter.parser.actions.DamageTakenAction;
-import org.deschutter.parser.actions.DamageDoneAction;
 import org.deschutter.parser.actions.AttackAction;
+import org.deschutter.parser.actions.DamageDoneAction;
 import org.deschutter.parser.actions.DamageTypeEnum;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

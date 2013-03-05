@@ -4,7 +4,7 @@ package org.deschutter.parser.actions;
  *
  * @author berten
  */
-public class AttackAction extends ActorTargetAction {
+public class AttackAction extends ActorTargetHitAction {
 
     private final DamageTypeEnum damageType;
     private final Integer blocked;
@@ -12,8 +12,8 @@ public class AttackAction extends ActorTargetAction {
     private final Integer overkill;
     private final Integer deflected;
 
-    public AttackAction(String actor, String target, String skill, Integer amount, Integer secondsIntoFight, DamageTypeEnum damageType,Boolean criticalHit,Integer blocked, Integer absorbed, Integer overkill,Integer deflected) {
-        super(ActionTypeEnum.ATTACK, actor, target, skill, amount, secondsIntoFight,criticalHit);
+    public AttackAction(String actor, String target, String skill,Integer secondsIntoFight, Integer amount,  DamageTypeEnum damageType,Boolean criticalHit,Integer blocked, Integer absorbed, Integer overkill,Integer deflected) {
+        super(ActionTypeEnum.ATTACK, actor, target, skill, amount,secondsIntoFight,criticalHit);
         this.damageType = damageType;
         this.blocked = blocked;
         this.absorbed = absorbed;
