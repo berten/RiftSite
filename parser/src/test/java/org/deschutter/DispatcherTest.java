@@ -2,10 +2,14 @@ package org.deschutter;
 
 import org.deschutter.analyzer.FightAnalyzer;
 import org.deschutter.parser.DamageDoneParser;
+
+import java.io.BufferedReader;
 import java.io.FileReader;
 import org.deschutter.parser.exception.FileNullException;
 import org.deschutter.parser.ParsedLine;
 import org.junit.Test;
+
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 import org.deschutter.parser.IParser;
@@ -37,19 +41,19 @@ public class DispatcherTest {
     
     @Test
     public void analyse_callsParser_canHandle() throws Exception {
-        dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/parser/src/test/resources/oneLineParse.txt"));
+        dispatcher.dispatch(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("oneLineParse.txt")));
         verify(attackParser).canHandle(any(ParsedLine.class));
     }
         
     @Test
     public void analyse_parserCanHandle_Must_handle() throws Exception {
         when(attackParser.canHandle(any(ParsedLine.class))).thenReturn(Boolean.TRUE);
-        dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/parser/src/test/resources/oneLineParse.txt"));
+        dispatcher.dispatch(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("oneLineParse.txt")));
         verify(attackParser).handle(any(ParsedLine.class));
     }
     @Test
     public void dispatch_CallsAnalyzer() throws Exception {
-         dispatcher.dispatch(new FileReader(System.getProperty("user.dir")+"/parser/src/test/resources/oneLineParse.txt"));
+         dispatcher.dispatch(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("oneLineParse.txt")));
          verify(analyzer).analyzeFight(any(Fight.class));
     }
     

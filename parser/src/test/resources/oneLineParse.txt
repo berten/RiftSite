@@ -1,1 +1,2 @@
+Combat Begin
 20:23:31: ( 23 , T=P#R=G#353391833781683601 , T=N#R=O#9223372040713575731 , T=X#R=X#0 , T=X#R=X#0 , Meteorblade , Rusila Dreadblade , 178 , 1179017819 , Storm Blade ) Meteorblade's Storm Blade critically hits Rusila Dreadblade for 178 Air damage.
