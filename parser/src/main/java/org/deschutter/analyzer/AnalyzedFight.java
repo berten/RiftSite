@@ -2,6 +2,8 @@ package org.deschutter.analyzer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.deschutter.analyzer.damage.DamageAbility;
 import org.deschutter.analyzer.damage.done.DamageDone;
 import org.deschutter.analyzer.damage.miss.Miss;
 import org.deschutter.analyzer.damage.taken.DamageTaken;
@@ -135,20 +137,38 @@ public class AnalyzedFight implements IContainDuration {
         return misses;
     }
 
-    public Miss getMiss(String nilus) {
-        return getMissContainer(nilus);
+    public Miss getMiss(String name) {
+        return getMissContainer(name);
     }
 
     public void print() {
-        System.out.println("=================================================");
+
         System.out.println("Fight Duration: " + duration + " seconds");
+
         System.out.println("Damage Done");
         for (DamageDone damage : damageDone) {
             System.out.println(damage.getName() + " :" + damage.getTotalDamage() + " " + damage.getDamagePerSecond());
+            for (DamageAbility damageAbility : damage.getAbilities()) {
+                System.out.println("              " + damageAbility.getName()+ ": " + damageAbility.getTotalDamage() + " Biggest Hit: " + damageAbility.getBiggestHit() + " Amount of hits: " + damageAbility.getHits().size());
+            }
+
+
         }
+        System.out.println("=================================================");
         System.out.println("Healing Done");
         for (HealingDone healing : healingDone) {
             System.out.println(healing.getName()+ " :" + healing.getTotalHealing() + " " +healing.getHealingPerSecond());
+        }
+
+        System.out.println("=================================================");
+        System.out.println("Damage Taken");
+        for (DamageTaken taken : damageTaken) {
+                              System.out.println(taken.getName() + ": Absorbed: (" + taken.getTotalAbsorbed() + ") Blocked: (" + taken.getTotalBlocked() + ") Deflected: (" + taken.getTotalDeflected() + ") Taken: (" + taken.getTotalDamage()+")");
+        }
+        System.out.println("=================================================");
+        System.out.println("Misses");
+        for (Miss miss : misses) {
+             System.out.println(miss.getActor() + ": " + miss.getMisses());
         }
     }
 }

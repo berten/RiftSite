@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class AttackActionTest {
 
-    private AttackAction attackAction = new AttackAction("Nilus", "Murdantix", "skill", 1, 2, DamageTypeEnum.LIFE, Boolean.TRUE, new Integer(12), new Integer(13), new Integer(14), new Integer(15));
+    private AttackAction attackAction = new AttackAction("Nilus", "Murdantix", "skill", 1, 2, DamageTypeEnum.LIFE, Boolean.TRUE, 12, 13, 14, 15);
 
     @Test
     public void correctType() {
